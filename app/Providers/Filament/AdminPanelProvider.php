@@ -61,7 +61,6 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 AuthDesignerPlugin::make()
-                    ->themeToggle()
                     ->login(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->mediaPosition(MediaPosition::Cover)

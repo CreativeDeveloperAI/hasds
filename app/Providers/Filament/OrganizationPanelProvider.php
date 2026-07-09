@@ -67,13 +67,6 @@ class OrganizationPanelProvider extends PanelProvider
                 AuthDesignerPlugin::make()
                     ->themeToggle()
                     ->defaults(fn(AuthPageConfig $config) => $config
-                        ->media(asset('assets/img_1.png'))
-                        ->mediaPosition(MediaPosition::Cover)
-                        ->mediaSize('60%') // Media takes 50% width
-                    ),
-                AuthDesignerPlugin::make()
-                    ->themeToggle()
-                    ->defaults(fn(AuthPageConfig $config) => $config
                     ->media(asset('assets/img_1.png')
                     ))
                     ->registration(fn(AuthPageConfig $config) => $config
