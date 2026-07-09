@@ -65,7 +65,6 @@ class OrganizationPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 AuthDesignerPlugin::make()
-                    ->themeToggle()
                     ->defaults(fn(AuthPageConfig $config) => $config
                     ->media(asset('assets/img_1.png')
                     ))
