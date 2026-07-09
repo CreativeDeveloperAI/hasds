@@ -66,12 +66,23 @@ class OrganizationPanelProvider extends PanelProvider
             ])->plugins([
                 AuthDesignerPlugin::make()
                     ->themeToggle()
-                    ->defaults(fn (AuthPageConfig $config) => $config
+                    ->defaults(fn(AuthPageConfig $config) => $config
+                        ->media(asset('assets/img_1.png'))
+                        ->mediaPosition(MediaPosition::Cover)
+                        ->mediaSize('60%') // Media takes 50% width
+                    ),
+                AuthDesignerPlugin::make()
+                    ->themeToggle()
+                    ->registration(fn(AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%') // Media takes 50% width
                     )
-
+                    ->login(fn(AuthPageConfig $config) => $config
+                        ->media(asset('assets/img_1.png'))
+                        ->mediaPosition(MediaPosition::Cover)
+                        ->mediaSize('60%') // Media takes 50% width
+                    )
 
             ]);
     }

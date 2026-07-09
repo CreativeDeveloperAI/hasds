@@ -29,10 +29,9 @@ class AdminPanelProvider extends PanelProvider
         return $panel
             ->default()
             ->id('admin')
-            ->path('')
+            ->path('admin')
             ->login()
-            ->registration()
-            ->brandLogo(asset('assets/logo.png'))
+            ->brandLogo(asset('assets/img_2.png'))
             ->brandLogoHeight('60px')
             ->colors([
                 'primary' => Color::Blue,
@@ -63,17 +62,11 @@ class AdminPanelProvider extends PanelProvider
             ])->plugins([
                 AuthDesignerPlugin::make()
                     ->themeToggle()
-                    ->registration(fn (AuthPageConfig $config) => $config
-                        ->media(asset('assets/img_1.png'))
-                        ->mediaPosition(MediaPosition::Cover)
-                        ->mediaSize('60%') // Media takes 50% width
-                    )
                     ->login(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->mediaPosition(MediaPosition::Cover)
-                        ->mediaSize('60%') // Media takes 50% width
+                        ->mediaSize('60%')
                     )
-
             ]);
     }
 }
