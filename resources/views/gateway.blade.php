@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة إدارة المساعدات الإنسانية - غزة</title>
+    <title>نظام التوزيع الذكي للمساعدات الإنسانية (HASDS)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -21,19 +21,20 @@
 <header class="glass-header sticky top-0 z-50 border-b border-gray-200/60 py-4 px-6 text-center shadow-[0_2px_15px_-3px_rgba(0,0,0,0.05)]">
     <div class="flex items-center justify-center gap-2 mb-1">
         <i data-lucide="shield-check" class="w-7 h-7 text-emerald-600 animate-pulse"></i>
-        <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">منصة الحوكمة الإغاثية الموحدة</h1>
+        <h1 class="text-2xl font-extrabold text-slate-800 tracking-tight">نظام التوزيع الذكي للمساعدات الإنسانية (HASDS)</h1>
     </div>
-    <p class="text-xs font-medium text-slate-500 max-w-xl mx-auto leading-relaxed">النظام المركزي لتدقيق البيانات المتقاطع ومنع التكرار وحساب أولويات الاستحقاق الذكي</p>
+    <p class="text-xs font-semibold text-slate-600 tracking-wide uppercase">Humanitarian Aid Smart Distribution System</p>
+    <p class="text-xs font-medium text-slate-500 max-w-2xl mx-auto leading-relaxed mt-1">المنصة المركزية لإستحقاق المساعدات الغذائية والطبية والنقدية بقطاع غزة - القضاء على التوزيع المكرر وتعزيز شفافية الاستهداف</p>
 </header>
 
 <main class="max-w-6xl mx-auto px-6 py-12 flex-grow flex flex-col justify-center items-center w-full">
     <div class="text-center mb-14">
             <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/60 mb-3">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping"></span>
-                بوابة التوجيه الآمنة
+                بوابة توجيه منظمات المساعدات والمسؤولين
             </span>
-        <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">مرحباً بك في المنصة الذكية</h2>
-        <p class="text-slate-500 mt-3 text-base max-w-md mx-auto">يرجى اختيار البوابة المخصصة لك للوصول إلى بيئة العمل والتحكم الخاصة بك</p>
+        <h2 class="text-4xl font-extrabold text-slate-900 tracking-tight">مرحباً بك في منصة HASDS</h2>
+        <p class="text-slate-500 mt-3 text-base max-w-xl mx-auto">نظام متكامل يغطي عمليات التسجيل، التقييم الميداني، تحديد أولويات المستفيدين بناءً على نقاط الاستحقاق المعيارية، والتقارير التفصيلية.</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-5xl">
@@ -46,7 +47,7 @@
                     <i data-lucide="sliders" class="w-7 h-7 stroke-[1.8]"></i>
                 </div>
                 <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors">الإدارة العامة للنظام</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">بوابة الـ (Super Admin) لمراجعة واعتماد طلبات الجمعيات الشريكة، حوكمة القوانين، ومتابعة لوحة المؤشرات وخوارزمية الفرز والتقارير القومية.</p>
+                <p class="text-slate-500 text-sm leading-relaxed">بوابة الإدارة المركزية لمراجعة واعتماد طلبات المنظمات والجمعيات الشريكة، حوكمة وتتبع الفجوات الإغاثية، وإصدار الإحصائيات الشاملة لعمليات التوزيع الموحدة.</p>
             </div>
             <div class="mt-8">
                 <a href="{{ url('/admin/login') }}" class="group/btn flex items-center justify-center gap-2 w-full bg-slate-900 hover:bg-blue-600 text-white font-medium py-3.5 px-4 rounded-2xl shadow-sm transition-all duration-300">
@@ -63,8 +64,8 @@
                 <div class="w-14 h-14 bg-gradient-to-br from-teal-50 to-teal-100/60 text-teal-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-teal-200/30 group-hover:scale-110 transition-transform duration-500">
                     <i data-lucide="building-2" class="w-7 h-7 stroke-[1.8]"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-teal-600 transition-colors">المؤسسات الشريكة</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">بوابة الجمعيات والمبادرات الإغاثية لإدارة الكشوفات الميدانية، حوكمة وضبط الحقول الديناميكية الخاصة بمؤسستكم، وتوثيق تقييمات المستفيدين.</p>
+                <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-teal-600 transition-colors">منظمات ومسؤولي المساعدات</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">بوابة الجمعيات واللجان الميدانية لإدخال وفحص كشوفات المستفيدين بشكل متقاطع لمنع التكرار، وضبط الحقول الديناميكية المرنة حسب طبيعة الاحتياج الميداني.</p>
             </div>
             <div class="mt-8 space-y-3">
                 <a href="{{ url('/organization/login') }}" class="group/btn flex items-center justify-center gap-2 w-full bg-teal-600 hover:bg-teal-700 text-white font-medium py-3.5 px-4 rounded-2xl shadow-sm shadow-teal-600/10 transition-all duration-300">
@@ -73,7 +74,7 @@
                 </a>
                 <a href="{{ url('/organization/register') }}" class="flex items-center justify-center gap-1 text-teal-600 hover:text-teal-700 font-semibold text-sm transition py-1">
                     <i data-lucide="plus-circle" class="w-4 h-4"></i>
-                    <span>تقديم طلب انضمام لمؤسسة جديدة</span>
+                    <span>تقديم طلب اعتماد مؤسسة جديدة</span>
                 </a>
             </div>
         </div>
@@ -85,8 +86,8 @@
                 <div class="w-14 h-14 bg-gradient-to-br from-purple-50 to-purple-100/60 text-purple-600 rounded-2xl flex items-center justify-center mb-6 shadow-sm border border-purple-200/30 group-hover:scale-110 transition-transform duration-500">
                     <i data-lucide="user-check" class="w-7 h-7 stroke-[1.8]"></i>
                 </div>
-                <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-purple-600 transition-colors">بوابة المستفيدين</h3>
-                <p class="text-slate-500 text-sm leading-relaxed">تتيح للمواطنين وأرباب الأسر إمكانية التسجيل الذاتي المباشر، تحديث بيانات النزوح الحالية والمأوى، ومتابعة حالة الاستحقاق والصرف بشكل آمن ومستقل.</p>
+                <h3 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-purple-600 transition-colors">بوابة المستفيدين (المواطنين)</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">تتيح لأرباب الأسر في المناطق المستهدفة بغزة إمكانية التسجيل الذاتي، تحديث معطيات السكن والنزوح الحالية، ومتابعة حالة طلباتهم لتسريع وتيرة الاستجابة.</p>
             </div>
             <div class="mt-8">
                 <a href="{{ url('/beneficiary/portal') }}" class="group/btn flex items-center justify-center gap-2 w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3.5 px-4 rounded-2xl shadow-sm shadow-purple-600/10 transition-all duration-300">
@@ -100,7 +101,7 @@
 </main>
 
 <footer class="bg-white border-t border-slate-200/60 py-4 text-center text-xs font-medium text-slate-400 shadow-[0_-2px_15px_rgba(0,0,0,0.02)]">
-    جميع الحقوق محفوظة © {{ date('Y') }} - نظام الحوكمة الإغاثية وحماية الخصوصية الموحد
+    جميع الحقوق محفوظة © {{ date('Y') }} - نظام HASDS لحوكمة المساعدات الإنسانية وتقليل الهدر
 </footer>
 
 <script>
