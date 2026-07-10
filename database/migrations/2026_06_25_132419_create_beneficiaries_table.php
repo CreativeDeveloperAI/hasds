@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('beneficiaries', function (Blueprint $table) {
             $table->id();
-            $table->string('national_id')->unique(); // المعرّف الفريد والأوحد لمنع التكرار (المشفر)
-            $table->string('full_name'); // الاسم الرسمي لرب الأسرة
+            $table->string('national_id')->unique();
+            $table->string('full_name');
             $table->date('date_of_birth')->nullable(); // تاريخ الميلاد لتحديد فئة العمر والشباب/كبا
+            $table->string('password');
             $table->timestamps();
         });
     }

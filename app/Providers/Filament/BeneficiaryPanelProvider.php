@@ -2,8 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Beneficiary\Pages\Auth\CustomBeneficiaryLogin;
 use App\Filament\Pages\Auth\RegisterOrganization;
-use App\Models\Organization;
 use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
 use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
 use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
@@ -15,6 +15,7 @@ use Filament\Pages\Dashboard;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\Width;
 use Filament\Widgets\AccountWidget;
 use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
@@ -24,31 +25,30 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 
-class OrganizationPanelProvider extends PanelProvider
+class BeneficiaryPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
         return $panel
-            ->id('organization')
-            ->path('organization')
+            ->id('beneficiary')
+            ->path('beneficiary/portal')
+            ->login()
+            ->navigation(false)
+            ->maxContentWidth(Width::Full)
+            ->authGuard('beneficiary_guard') // سنعرف هذا الـ Guard في الخطوة القادمة
             ->colors([
                 'primary' => Color::Teal,
             ])
-            ->login()
-            ->sidebarCollapsibleOnDesktop()
-            ->registration(RegisterOrganization::class)
-            ->tenant(Organization::class, slugAttribute: 'id')
+            ->brandLogoHeight('60px')
             ->brandLogo(asset('assets/img_2.png'))
-//            ->brandLogoHeight('60px')
-            ->discoverResources(in: app_path('Filament/Organization/Resources'), for: 'App\Filament\Organization\Resources')
-            ->discoverPages(in: app_path('Filament/Organization/Pages'), for: 'App\Filament\Organization\Pages')
+            ->discoverResources(in: app_path('Filament/Beneficiary/Resources'), for: 'App\Filament\Beneficiary\Resources')
+            ->discoverPages(in: app_path('Filament/Beneficiary/Pages'), for: 'App\Filament\Beneficiary\Pages')
             ->pages([
                 Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Organization/Widgets'), for: 'App\Filament\Organization\Widgets')
+            ->discoverWidgets(in: app_path('Filament/Beneficiary/Widgets'), for: 'App\Filament\Beneficiary\Widgets')
             ->widgets([
-                AccountWidget::class,
-                FilamentInfoWidget::class,
+
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -63,23 +63,18 @@ class OrganizationPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ])->plugins([
+            ])
+            ->plugins([
                 AuthDesignerPlugin::make()
                     ->defaults(fn(AuthPageConfig $config) => $config
-                    ->media(asset('assets/img_1.png')
-                    ))
-                    ->registration(fn(AuthPageConfig $config) => $config
-                        ->media(asset('assets/img_1.png'))
-                        ->usingPage(RegisterOrganization::class)
-                        ->mediaPosition(MediaPosition::Cover)
-                        ->mediaSize('60%')
-                    )
+                        ->media(asset('assets/img_1.png')
+                        ))
                     ->login(fn(AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
+                        ->usingPage(CustomBeneficiaryLogin::class)
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%') // Media takes 50% width
                     )
-
             ]);
     }
 }

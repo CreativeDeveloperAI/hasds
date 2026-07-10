@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            // ربط المستخدم بمؤسسة ( nullable لأنك أنت كـ Super Admin لا تتبع لأي مؤسسة بل تدير النظام كله )
             $table->foreignId('organization_id')
                 ->nullable()
                 ->constrained('organizations')

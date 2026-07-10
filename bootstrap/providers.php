@@ -3,5 +3,6 @@
 return [
     App\Providers\AppServiceProvider::class,
     App\Providers\Filament\AdminPanelProvider::class,
+    App\Providers\Filament\BeneficiaryPanelProvider::class,
     App\Providers\Filament\OrganizationPanelProvider::class,
 ];

@@ -42,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'beneficiary_guard' => [
+            'driver' => 'session',
+            'provider' => 'beneficiaries_provider',
+        ],
     ],
 
     /*
@@ -71,6 +75,10 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        'beneficiaries_provider' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Beneficiary::class,
+        ],
     ],
 
     /*
