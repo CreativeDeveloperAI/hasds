@@ -32,6 +32,7 @@ class BeneficiaryPanelProvider extends PanelProvider
         return $panel
             ->id('beneficiary')
             ->path('beneficiary/portal')
+            ->viteTheme('resources/css/filament/beneficiary/theme.css')
             ->login()
             ->navigation(false)
             ->maxContentWidth(Width::Full)

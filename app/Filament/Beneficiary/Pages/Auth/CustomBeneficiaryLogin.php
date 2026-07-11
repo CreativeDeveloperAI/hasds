@@ -7,6 +7,7 @@ use Filament\Auth\Pages\Login;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Validation\ValidationException;
 
 class CustomBeneficiaryLogin extends Login
 {
@@ -30,8 +31,6 @@ class CustomBeneficiaryLogin extends Login
                     ->required()
                     ->placeholder('اختر أو اكتب تاريخ ميلادك')
                     ->displayFormat('Y-m-d'), // التنسيق القياسي المعتمد
-
-                $this->getRememberFormComponent(),
             ]);
     }
 
@@ -42,5 +41,11 @@ class CustomBeneficiaryLogin extends Login
             'national_id' => $data['national_id'],
             'password' => $data['password'],
         ];
+    }
+    protected function throwFailureValidationException(): never
+    {
+        throw ValidationException::withMessages([
+            'data.national_id' => __('filament-panels::auth/pages/login.messages.failed'),
+        ]);
     }
 }

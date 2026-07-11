@@ -1,94 +1,100 @@
 <x-filament-widgets::widget>
-    @vite(['resources/css/app.css','resources/js/app.js'])
-    <div class="grid grid-cols-1 gap-y-6">
-
-        <div class="p-6 rounded-xl bg-gradient-to-r from-purple-600 to-indigo-700 text-white shadow-md">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+    <div class="space-y-6">
+        <!-- الرأس الأساسي: البيانات السيادية -->
+        <div class="p-6 rounded-2xl bg-gradient-to-tr from-indigo-900 to-purple-800 text-white shadow-xl">
+            <div class="flex justify-between items-start">
                 <div>
-                    <div class="text-xs font-semibold tracking-wide uppercase text-purple-100 mb-1">
-                        البوابة الرقمية الموحدة للمستفيدين (HASDS)
-                    </div>
-                    <h2 class="text-2xl font-bold tracking-tight text-white">
-                        مرحباً، {{ $beneficiary->full_name }}
-                    </h2>
-                    <p class="text-sm text-purple-200 mt-1">
-                        رقم الهوية الوطنية: <span class="font-mono bg-black/20 px-2 py-0.5 rounded text-white font-bold">{{ $beneficiary->national_id }}</span>
-                    </p>
+                    <h2 class="text-3xl font-bold tracking-tight">أهلاً بك، {{ $beneficiary->full_name }}</h2>
+                    <p class="text-purple-200 mt-2 font-mono text-lg">رقم الهوية: {{ $beneficiary->national_id }}</p>
                 </div>
-
-                <div class="bg-white/10 backdrop-blur px-4 py-3 rounded-lg text-center border border-white/10 min-w-[140px]">
-                    <div class="text-xs text-purple-100 font-medium">مؤشر أولوية الاحتياج</div>
-                    <div class="text-3xl font-black text-yellow-300 mt-0.5">
-                        {{ number_format($pivot?->priority_score ?? 0, 0) }}<span class="text-sm text-white/80">/100</span>
-                    </div>
+                <div class="text-right">
+                    <span class="px-4 py-1.5 rounded-full bg-white/20 border border-white/30 text-sm font-semibold">
+                        الحالة الحيوية: {{ $beneficiary->vital_status->getLabel() }}
+                    </span>
+                    <p class="text-xs text-purple-300 mt-2">الحالة الاجتماعية: {{ $beneficiary->marital_status->getLabel() }}</p>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- تكرار بيانات المؤسسات الشريكة -->
+        @foreach($beneficiary->organizations as $org)
+            <div class="border border-gray-200 dark:border-gray-700 rounded-2xl overflow-hidden bg-white dark:bg-gray-900 shadow-sm">
+                <!-- شريط عنوان المؤسسة -->
+                <div class="bg-gray-50 dark:bg-gray-800 p-5 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800 dark:text-gray-200">{{ $org->name }}</h3>
+                        <p class="text-sm text-gray-500">جهة التقييم والمسح الميداني</p>
+                    </div>
+                    <div class="text-center px-4 py-2 bg-white dark:bg-gray-900 rounded-xl shadow-inner border border-gray-100 dark:border-gray-700">
+                        <div class="text-[10px] uppercase text-gray-400 font-bold">مؤشر الأولوية</div>
+                        <div class="text-3xl font-black text-indigo-600">{{ number_format($org->pivot->priority_score ?? 0, 0) }}</div>
+                    </div>
+                </div>
 
-            <x-filament::section icon="heroicon-o-check-circle" icon-color="purple">
-                <x-slot name="heading">حالة الاستهداف الحالية</x-slot>
+                <div class="p-6 grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- تفاصيل الحالة الاجتماعية والميدانية -->
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                <x-heroicon-o-home class="w-5 h-5 text-indigo-500" /> تفاصيل السكن
+                            </h4>
+                            <ul class="text-sm space-y-2 text-gray-600 dark:text-gray-400">
+                                <li>الحالة: <span class="font-semibold text-gray-900 dark:text-gray-100">{{ $org->pivot->is_displaced ? 'نازح' : 'مقيم' }}</span></li>
+                                <li>المأوى: <span class="font-semibold text-gray-900 dark:text-gray-100">{{ $org->pivot->current_shelter_type?->getLabel() ?? 'غير محدد' }}</span></li>
+                                <li>موقع النزوح: <span class="font-semibold text-gray-900 dark:text-gray-100">{{ $org->pivot->current_displacement_location ?? 'غير متوفر' }}</span></li>
+                            </ul>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                                <x-heroicon-o-users class="w-5 h-5 text-indigo-500" /> بيانات الأسرة
+                            </h4>
+                            <ul class="text-sm space-y-2 text-gray-600 dark:text-gray-400">
+                                <li>إجمالي الأفراد: <span class="font-semibold">{{ $org->pivot->family_members_count }}</span></li>
+                                <li>أطفال دون 5 سنوات: <span class="font-semibold">{{ $org->pivot->children_under_5_count }}</span></li>
+                                <li>كبار السن: <span class="font-semibold">{{ $org->pivot->elderly_count }}</span></li>
+                                <li>حوامل/مرضعات: <span class="font-semibold">{{ $org->pivot->pregnant_or_lactating_count }}</span></li>
+                            </ul>
+                        </div>
+                        <div class="lg:col-span-2 pt-4 border-t border-gray-100 dark:border-gray-700">
+                            <h4 class="font-bold text-gray-700 dark:text-gray-300 mb-3">الوضع الصحي الميداني</h4>
+                            <div class="flex flex-wrap gap-2">
+                                @if($org->pivot->has_disability) <span class="px-3 py-1 bg-red-100 text-red-800 rounded-lg text-xs font-bold">إعاقة: {{ $org->pivot->disability_type?->getLabel() }}</span> @endif
+                                @if($org->pivot->has_chronic_disease) <span class="px-3 py-1 bg-amber-100 text-amber-800 rounded-lg text-xs font-bold">مرض مزمن</span> @endif
+                                @if($org->pivot->has_recent_injury) <span class="px-3 py-1 bg-rose-100 text-rose-800 rounded-lg text-xs font-bold">إصابة: {{ $org->pivot->injury_severity?->getLabel() }}</span> @endif
+                            </div>
+                        </div>
+                    </div>
 
-                <div class="space-y-3 pt-2">
-                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2 text-sm">
-                        <span class="text-gray-500">تصنيف الأولوية:</span>
-                        @if(($pivot?->priority_score ?? 0) >= 75)
-                            <span class="font-bold text-red-600 dark:text-red-400">حرجة (أولوية قصوى)</span>
-                        @elseif(($pivot?->priority_score ?? 0) >= 50)
-                            <span class="font-bold text-amber-600 dark:text-amber-400">متوسطة الاحتياج</span>
+                    <!-- سجل المساعدات -->
+                    <div class="bg-gray-50 dark:bg-gray-800 p-5 rounded-2xl border border-gray-100 dark:border-gray-700">
+                        <h4 class="font-bold text-gray-800 dark:text-gray-200 mb-4 flex items-center gap-2">
+                            <x-heroicon-o-gift class="w-5 h-5 text-green-500" /> المساعدات المستلمة
+                        </h4>
+                        @php
+                            $orgDistributions = $beneficiary->distributions()
+                                ->whereHas('assistancePackage', fn($q) => $q->where('organization_id', $org->id))
+                                ->with('assistancePackage')
+                                ->get();
+                        @endphp
+
+                        @if($orgDistributions->isNotEmpty())
+                            <ul class="space-y-3">
+                                @foreach($orgDistributions as $dist)
+                                    <li class="bg-white dark:bg-gray-900 p-3 rounded-xl border border-gray-100 dark:border-gray-700 shadow-sm">
+                                        <div class="font-bold text-sm text-green-700 dark:text-green-400">{{ $dist->assistancePackage->name }}</div>
+                                        <div class="text-[11px] text-gray-500 mt-1">تاريخ الاستلام: {{ $dist->delivered_at?->format('Y-m-d') }}</div>
+                                    </li>
+                                @endforeach
+                            </ul>
                         @else
-                            <span class="font-bold text-green-600 dark:text-green-400">مستقرة نسبياً</span>
+                            <p class="text-sm text-gray-400 italic">لا توجد سجلات توزيع حالية.</p>
                         @endif
                     </div>
-                    <div class="flex justify-between items-center text-sm pt-1">
-                        <span class="text-gray-500">الجهة المقيمة:</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">{{ $organization_name }}</span>
-                    </div>
                 </div>
-            </x-filament::section>
-
-            <x-filament::section icon="heroicon-o-home" icon-color="indigo">
-                <x-slot name="heading">معطيات السكن والنزوح</x-slot>
-
-                <div class="space-y-3 pt-2">
-                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2 text-sm">
-                        <span class="text-gray-500">حالة السكن:</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">
-                            {{ $pivot?->is_displaced ? 'نازح في الميدان' : 'مقيم في منزله الأصلي' }}
-                        </span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm pt-1">
-                        <span class="text-gray-500">نوع المأوى:</span>
-                        <span class="font-medium text-gray-700 dark:text-gray-300">
-                            {{ $pivot?->current_shelter_type ?: 'غير محدد' }}
-                        </span>
-                    </div>
+                <div class="px-6 py-3 bg-gray-50 dark:bg-gray-800 border-t border-gray-100 dark:border-gray-700 text-[11px] text-gray-400">
+                    آخر تحديث للمسح الميداني: {{ $org->pivot->surveyed_at?->diffForHumans() }}
                 </div>
-            </x-filament::section>
-
-            <x-filament::section icon="heroicon-o-users" icon-color="slate">
-                <x-slot name="heading">التركيبة الاجتماعية</x-slot>
-
-                <div class="space-y-3 pt-2">
-                    <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-800 pb-2 text-sm">
-                        <span class="text-gray-500">أفراد الأسرة:</span>
-                        <span class="font-bold text-gray-800 dark:text-gray-200">{{ $pivot?->family_members_count ?? 1 }} أفراد</span>
-                    </div>
-                    <div class="flex justify-between items-center text-sm pt-1">
-                        <span class="text-gray-500">آخر تحديث:</span>
-                        <span class="text-xs text-gray-400">
-                            {{ $pivot?->surveyed_at ? \Carbon\Carbon::parse($pivot->surveyed_at)->format('Y-m-d') : 'لا يوجد مسح مؤخراً' }}
-                        </span>
-                    </div>
-                </div>
-            </x-filament::section>
-
-        </div>
-
-        <div class="p-4 rounded-lg bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
-            💡 <strong>تنبيه للمستفيد:</strong> المعطيات والنقاط أعلاه مستخرجة مباشرة من سجلات المسح الميداني المحوكمة. في حال حدوث تغيير مفاجئ في حالتك الاجتماعية أو مكان الإيواء، يُرجى مراجعة المؤسسة الشريكة المسؤولة لتحديث الاستمارة الميدانية لضمان دقة ترتيبك في كشوفات الاستحقاق الذكية.
-        </div>
-
+            </div>
+        @endforeach
     </div>
 </x-filament-widgets::widget>

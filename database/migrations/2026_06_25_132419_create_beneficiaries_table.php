@@ -15,8 +15,16 @@ return new class extends Migration
             $table->id();
             $table->string('national_id')->unique();
             $table->string('full_name');
-            $table->date('date_of_birth')->nullable(); // تاريخ الميلاد لتحديد فئة العمر والشباب/كبا
+            $table->string('gender'); // male (ذكر) ، female (أنثى)
+            $table->date('date_of_birth')->nullable();
             $table->string('password');
+
+            // رقم الهاتف الثابت الخاص بالمواطن لتسجيل الدخول وإدارة بياناته بمعزل عن الجمعيات
+            $table->string('personal_phone')->nullable();
+
+            // الحالة الاجتماعية والتركيبة السيادية
+            $table->string('marital_status')->default('married'); // married, single, widowed, divorced
+            $table->string('vital_status')->default('alive');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Organizations\Tables;
 
+use App\Enums\OrganizationStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -12,58 +13,46 @@ use Filament\Tables\Table;
 
 class OrganizationsTable
 {
+    /**
+     * إعداد وتصميم جدول استعراض المؤسسات الشريكة
+     */
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-             TextColumn::make('name')
-                    ->label('اسم المؤسسة')
+                TextColumn::make('name')
+                    ->label('المؤسسة الشريكة')
                     ->searchable()
-                    ->sortable(),
-             TextColumn::make('license_number')
+                    ->sortable()
+                    ->weight('bold'),
+                TextColumn::make('license_number')
                     ->label('رقم الترخيص')
-                    ->placeholder('مبادرة غير مرخصة')
+                    ->placeholder('مبادرة محلية غير مرخصة')
+                    ->searchable()
+                    ->toggleable(),
+                TextColumn::make('primary_contact_person')
+                    ->label('المنسق المسؤول')
                     ->searchable(),
-             TextColumn::make('primary_contact_person')
-                    ->label(' المسؤول')
-                    ->searchable(),
-             IconColumn::make('enable_cross_checking')
+                IconColumn::make('enable_cross_checking')
                     ->label('منع التكرار')
-                    ->boolean(),
-
-                // عرض حالة الحساب بألوان مميزة لسهولة القراءة والفرز اللحظي
-             TextColumn::make('status')
-                    ->label('حالة الحساب')
-                    ->badge()
-                    ->color(fn (string $state): string => match ($state) {
-                        'approved' => 'success',
-                        'pending' => 'warning',
-                        'suspended' => 'danger',
-                        default => 'gray',
-                    })
-                    ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'approved' => 'مفعّل',
-                        'pending' => 'قيد الانتظار',
-                        'suspended' => 'موقوف',
-                        default => $state,
-                    }),
-             TextColumn::make('created_at')
-                    ->label('تاريخ التسجيل')
+                    ->boolean()
+                    ->alignCenter(),
+                TextColumn::make('status')
+                    ->label('الحالة الحالية')
+                    ->badge(),
+                TextColumn::make('created_at')
+                    ->label('تاريخ الانضمام')
                     ->dateTime('Y-m-d')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                // فلتر سريع لعرض المؤسسات حسب حالتها (مثلاً عرض طلبات الانتظار فقط)
                 SelectFilter::make('status')
-                    ->label('تصفية حسب الحالة')
-                    ->options([
-                        'pending' => 'قيد الانتظار',
-                        'approved' => 'مفعّل',
-                        'suspended' => 'موقوف',
-                    ]),
+                    ->label('تصفية حسب الحالة المعيارية')
+                    ->options(OrganizationStatus::class),
             ])
             ->recordActions([
-               EditAction::make()->label('تعديل والحالة'),
+                EditAction::make()->label('إدارة وترخيص'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

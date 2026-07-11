@@ -31,6 +31,7 @@ class OrganizationPanelProvider extends PanelProvider
         return $panel
             ->id('organization')
             ->path('organization')
+            ->viteTheme('resources/css/filament/organization/theme.css')
             ->colors([
                 'primary' => Color::Teal,
             ])

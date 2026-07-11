@@ -13,10 +13,9 @@ class BeneficiaryStatusWidget extends Widget
     {
         // جلب بيانات المستفيد الحالي المسجل عبر الـ Guard الخاص به
         $beneficiary = Auth::guard('beneficiary_guard')->user();
-
         // جلب السجل الميداني المرتبط بالمستفيد (آخر تقييم تم له في الميدان)
         $latestAssessment = $beneficiary?->organizations()->orderBy('surveyed_at', 'desc')->first();
-
+        $beneficiary->load(['organizations', 'distributions.assistancePackage']);
         $pivot = $latestAssessment ? $latestAssessment->pivot : null;
 
         return [
