@@ -80,7 +80,7 @@ class RegisterOrganization extends Register
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $data['password'],
             'organization_id' => $organization->id,
             'is_active' => true,
         ]);
