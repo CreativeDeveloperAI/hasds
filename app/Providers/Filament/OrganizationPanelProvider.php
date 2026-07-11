@@ -49,7 +49,7 @@ class OrganizationPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Organization/Widgets'), for: 'App\Filament\Organization\Widgets')
             ->widgets([
                 AccountWidget::class,
-                FilamentInfoWidget::class,
+//                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
