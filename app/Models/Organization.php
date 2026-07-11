@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\OrganizationStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -12,6 +13,7 @@ class Organization extends Model
 
     protected $casts = [
         'enable_cross_checking' => 'boolean',
+        'status' => OrganizationStatus::class,
     ];
 
     /**
