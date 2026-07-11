@@ -34,8 +34,22 @@ class User extends Authenticatable implements HasTenants , FilamentUser ,HasDefa
 
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
-    }
+        if ($panel->getId() === 'admin') {
+            // لوحة الأدمن السيادية: مخصصة فقط لمسؤولي النظام المركزي (الذين ليس لديهم مؤسسة مرتبطة)
+            return $this->organization_id === null && $this->is_active;
+        }
+
+        if ($panel->getId() === 'organization') {
+            // لوحة المؤسسة: مخصصة فقط للشركاء والباحثين الميدانيين التابعين للمؤسسات الشريكة
+            return $this->organization_id !== null && $this->is_active;
+        }
+
+        if ($panel->getId() === 'beneficiary') {
+            // لوحة المستفيدين الموحدة: محظورة تماماً على موظفي الإدارة والشركاء (يتم تسجيل دخول المستفيد عبر حارسه المخصص ونموذج Beneficiary)
+            return false;
+        }
+
+        return false;    }
 
     /**
      * التحقق مما إذا كان المستخدم يملك صلاحية دخول هذه المؤسسة بالذات
