@@ -2,10 +2,10 @@
 
 namespace App\Filament\Organization\Resources\AssistancePackages\RelationManagers;
 
+use App\Enums\AssistancePackageStatus;
+use App\Enums\DistributionStatus;
 use App\Models\AssistanceDistribution;
 use App\Models\Beneficiary;
-use App\Enums\DistributionStatus;
-use App\Enums\AssistancePackageStatus;
 use Filament\Actions\Action;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -23,47 +23,46 @@ class DistributionsRelationManager extends RelationManager
 {
     protected static string $relationship = 'distributions';
 
-    protected static ?string $title = 'كشف استحقاق وتوزيع المساعدات للأسرة';
-    protected static ?string $modelLabel = 'مستحق';
-    protected static ?string $pluralModelLabel = 'سجل التوزيع والمستحقين';
-
     public function table(Table $table): Table
     {
         $package = $this->getOwnerRecord();
         $isPackageCompleted = $package->status === AssistancePackageStatus::Completed;
 
         return $table
+            ->heading(__('messages.resource_788fbdf3'))
+            ->modelLabel(__('messages.resource_ac1fe346'))
+            ->pluralModelLabel(__('messages.resource_b90270a3'))
             ->recordTitleAttribute('id')
             ->columns([
                 TextColumn::make('beneficiary.full_name')
-                    ->label('الاسم الكامل للمواطن')
+                    ->label(__('messages.ui_382c547d'))
                     ->weight('bold')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('beneficiary.national_id')
-                    ->label('رقم الهوية الوطنية')
+                    ->label(__('messages.ui_3ca30c31'))
                     ->fontFamily('mono')
                     ->searchable(),
 
                 TextColumn::make('distribution_status')
-                    ->label('حالة التسليم')
+                    ->label(__('messages.ui_b6f2dd7d'))
                     ->badge(), // يقرأ التسميات والألوان تلقائياً من الـ Enum المربوطة
 
                 TextColumn::make('delivered_at')
-                    ->label('تاريخ ووقت الاستلام')
+                    ->label(__('messages.ui_87dda0b4'))
                     ->dateTime('Y-m-d H:i')
-                    ->placeholder('لم يتم الصرف بعد')
+                    ->placeholder(__('messages.ui_b8724632'))
                     ->sortable(),
 
                 TextColumn::make('notes')
-                    ->label('ملاحظات الصرف والاستبدال الميداني')
-                    ->placeholder('لا يوجد ملاحظات')
+                    ->label(__('messages.ui_bdbd9f4c'))
+                    ->placeholder(__('messages.ui_8fe7b57e'))
                     ->limit(30),
             ])
             ->filters([
                 SelectFilter::make('distribution_status')
-                    ->label('تصفية حسب حالة التسليم')
+                    ->label(__('messages.ui_b0dd5616'))
                     ->options(DistributionStatus::class),
             ])
             ->headerActions([
@@ -71,17 +70,20 @@ class DistributionsRelationManager extends RelationManager
                 // 1. إذا اكتملت الحصص المرصودة (المستفيدين الفعليين >= total_quantity)
                 // 2. إذا تم إنهاء وإغلاق الدورة الإغاثية بالكامل
                 CreateAction::make()
-                    ->label('إضافة مستحق يدوي للحزمة')
-                    ->modalHeading('تسجيل وإضافة مستفيد خارج كشوفات الفرز')
+                    ->label(__('messages.ui_c505cd65'))
+                    ->modalHeading(__('messages.ui_6f23cc38'))
                     ->visible(function () use ($package, $isPackageCompleted) {
-                        if ($isPackageCompleted) return false;
+                        if ($isPackageCompleted) {
+                            return false;
+                        }
 
                         $assignedCount = AssistanceDistribution::where('assistance_package_id', $package->id)->count();
+
                         return $assignedCount < $package->total_quantity;
                     })
                     ->schema([
                         Select::make('beneficiary_id')
-                            ->label('اختر المواطن من السجل الوطني لجمعيتك')
+                            ->label(__('messages.ui_e9869ad8'))
                             ->options(function () use ($package) {
                                 $tenantId = Filament::getTenant()?->id;
                                 $alreadyAssigned = AssistanceDistribution::where('assistance_package_id', $package->id)
@@ -100,7 +102,7 @@ class DistributionsRelationManager extends RelationManager
                         Hidden::make('distribution_status')
                             ->default(DistributionStatus::Pending->value),
                         Textarea::make('notes')
-                            ->label('سبب الإضافة اليدوية خارج محرك الاستهداف')
+                            ->label(__('messages.ui_5f16b8ae'))
                             ->rows(2)
                             ->required(),
                     ])
@@ -112,10 +114,10 @@ class DistributionsRelationManager extends RelationManager
             ->recordActions([
                 // 1. إجراء التسليم الفوري (يظهر فقط للحزم النشطة ولغير المستلمين)
                 Action::make('mark_delivered')
-                    ->label('تسليم المساعدة')
+                    ->label(__('messages.ui_a6f4655f'))
                     ->icon('heroicon-o-check-circle')
                     ->color('success')
-                    ->visible(fn ($record) => !$isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
+                    ->visible(fn ($record) => ! $isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
                     ->action(function ($record) use ($package) {
                         $record->update([
                             'distribution_status' => DistributionStatus::Delivered,
@@ -126,20 +128,20 @@ class DistributionsRelationManager extends RelationManager
                         $package->increment('distributed_quantity');
 
                         Notification::make()
-                            ->title('تم توثيق عملية الصرف الميداني بنجاح')
+                            ->title(__('messages.ui_05097766'))
                             ->success()
                             ->send();
                     }),
 
                 // 2. إجراء الاستبدال الذكي (يُخفى في حال التسليم الفعلي أو إغلاق الحزمة بالكامل)
                 Action::make('replace_beneficiary')
-                    ->label('استبدال بمستفيد بديل')
+                    ->label(__('messages.ui_dfbdf90e'))
                     ->icon('heroicon-o-arrows-right-left')
                     ->color('warning')
-                    ->visible(fn ($record) => !$isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
+                    ->visible(fn ($record) => ! $isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
                     ->schema([
                         Select::make('new_beneficiary_id')
-                            ->label('اختر المواطن البديل من سجلات جمعيتك')
+                            ->label(__('messages.ui_c077d9d5'))
                             ->options(function () use ($package) {
                                 $tenantId = Filament::getTenant()?->id;
                                 $alreadyAssigned = AssistanceDistribution::where('assistance_package_id', $package->id)
@@ -154,12 +156,12 @@ class DistributionsRelationManager extends RelationManager
                             ->searchable()
                             ->required(),
                         Textarea::make('notes')
-                            ->label('سبب الاستبدال الميداني الموثق')
-                            ->placeholder('مثال: عدم تواجده بالمنطقة الحالية / غادر مخيم النزوح')
+                            ->label(__('messages.ui_e601c07d'))
+                            ->placeholder(__('messages.ui_a5292bfc'))
                             ->required()
                             ->rows(2),
                     ])
-                    ->action(function ($record, array $data) use ($package) {
+                    ->action(function ($record, array $data) {
                         $oldName = $record->beneficiary?->full_name;
                         $newBeneficiary = Beneficiary::find($data['new_beneficiary_id']);
 
@@ -168,21 +170,24 @@ class DistributionsRelationManager extends RelationManager
                             'beneficiary_id' => $newBeneficiary->id,
                             'distribution_status' => DistributionStatus::Pending,
                             'delivered_at' => null,
-                            'notes' => 'تم الاستبدال بالمستفيد البديل بقرار الباحث الميداني. السبب: ' . $data['notes'],
+                            'notes' => __('messages.ui_601738cb').$data['notes'],
                         ]);
 
                         Notification::make()
-                            ->title('تم الاستبدال بنجاح')
-                            ->body("تم إيقاف المواطن {$oldName} واستبداله فوراً بالمواطن {$newBeneficiary->full_name}")
+                            ->title(__('messages.ui_9c69c832'))
+                            ->body(__('messages.ui_b4e8f1a2', [
+                                'old' => $oldName,
+                                'new' => $newBeneficiary->full_name,
+                            ]))
                             ->success()
                             ->send();
                     }),
 
                 // 3. شطب وإزالة الفرد (يُخفى في حال التسليم أو إغلاق الحزمة بالكامل)
                 DeleteAction::make()
-                    ->label('إزالة الفرد')
-                    ->modalHeading('شطب المواطن من كشف توزيع هذه الحزمة')
-                    ->visible(fn ($record) => !$isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
+                    ->label(__('messages.ui_b866ad96'))
+                    ->modalHeading(__('messages.ui_65a19862'))
+                    ->visible(fn ($record) => ! $isPackageCompleted && $record->distribution_status === DistributionStatus::Pending)
                     ->after(function ($record) use ($package) {
                         // إذا كان قد تم التسليم (حالة استثنائية)، نقوم بتقليص الصرف والمخزن معاً
                         if ($record->distribution_status === DistributionStatus::Delivered) {
@@ -191,7 +196,7 @@ class DistributionsRelationManager extends RelationManager
                         $package->decrement('total_quantity');
 
                         Notification::make()
-                            ->title('تم شطب الفرد بنجاح وتقليص الحصص المتوفرة')
+                            ->title(__('messages.ui_c3a2c5ff'))
                             ->warning()
                             ->send();
                     }),

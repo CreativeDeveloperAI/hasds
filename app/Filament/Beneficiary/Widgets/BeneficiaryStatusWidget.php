@@ -21,7 +21,7 @@ class BeneficiaryStatusWidget extends Widget
         return [
             'beneficiary' => $beneficiary,
             'pivot' => $pivot,
-            'organization_name' => $latestAssessment?->name ?? 'اللجنة المركزية للنظام',
+            'organization_name' => $latestAssessment?->name ?? __('messages.ui_a8f3c2d1'),
         ];
     }
 }
