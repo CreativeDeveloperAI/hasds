@@ -16,27 +16,27 @@ class BeneficiariesTable
         return $table
             ->columns([
                 TextColumn::make('national_id')
-                    ->label('رقم الهوية')
+                    ->label(__('messages.ui_0a375e0f'))
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('full_name')
-                    ->label('الاسم الكامل')
+                    ->label(__('messages.ui_90f9115a'))
                     ->searchable(),
                 // جلب البيانات من الجدول الوسيط (Pivot) الخاص بالجمعية الحالية
                 TextColumn::make('organizations.pivot.phone_number')
-                    ->label('رقم التواصل'),
+                    ->label(__('messages.ui_38ca5539')),
                 TextColumn::make('organizations.pivot.family_members_count')
-                    ->label('عدد الأفراد')
+                    ->label(__('messages.ui_d6ac7e16'))
                     ->sortable(),
                 TextColumn::make('organizations.pivot.priority_score')
-                    ->label('مؤشر الأولوية الذكي (AI)')
+                    ->label(__('messages.ui_092d2588'))
                     ->badge()
                     ->color(fn ($state) => $state >= 75 ? 'danger' : ($state >= 40 ? 'warning' : 'success'))
                     ->sortable(),
             ])
             ->filters([
                 TernaryFilter::make('organizations.pivot.is_displaced')
-                    ->label('حالة النزوح'),
+                    ->label(__('messages.ui_21b1a335')),
             ])
             ->recordActions([
                 EditAction::make(),

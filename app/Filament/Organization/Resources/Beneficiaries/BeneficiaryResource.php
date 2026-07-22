@@ -19,18 +19,33 @@ use Illuminate\Database\Eloquent\Builder;
 class BeneficiaryResource extends Resource
 {
     protected static ?string $tenantOwnershipRelationshipName = 'organizations';
+
     protected static ?string $model = Beneficiary::class;
 
-    protected static ?string $navigationLabel = 'إدارة المستفيدين';
-    protected static ?string $pluralModelLabel = 'المستفيدين';
-    protected static ?string $modelLabel = 'مستفيد';
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.resource_78687a0d');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.resource_76f12e5e');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('messages.resource_44c171ac');
+    }
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+
     /**
      * تعديل الاستعلام الأساسي (Query) ليعرض للمؤسسة فقط المستفيدين المرتبطين بها
      */
     public static function getEloquentQuery(): Builder
     {
         $tenantId = Filament::getTenant()?->id;
+
         return parent::getEloquentQuery()->whereHas('organizations', function ($query) use ($tenantId) {
             $query->where('organization_id', $tenantId);
         });

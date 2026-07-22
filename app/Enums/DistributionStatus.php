@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum DistributionStatus: string implements HasLabel, HasColor
+enum DistributionStatus: string implements HasColor, HasLabel
 {
     case Pending = 'pending';
     case Delivered = 'delivered';
@@ -16,11 +16,7 @@ enum DistributionStatus: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Pending => 'قيد الانتظار / لم يستلم',
-            self::Delivered => 'تم التسليم فعلياً للأسرة',
-            self::Cancelled => 'تم الإلغاء / الاستبدال الميداني',
-        };
+        return __('enums.DistributionStatus.'.$this->value);
     }
 
     /**

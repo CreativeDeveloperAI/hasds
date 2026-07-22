@@ -30,21 +30,6 @@ enum PolicyKey: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::IsDisplaced => 'المواطن نازح في الميدان (is_displaced)',
-            self::ShelterTent => 'نوع المأوى الحالي: خيمة (current_shelter_type = tent)',
-            self::ShelterCenter => 'نوع المأوى الحالي: مركز إيواء (current_shelter_type = shelter_center)',
-
-            self::HasDisability => 'المواطن من ذوي الاحتياجات الخاصة (has_disability)',
-            self::HasChronicDisease => 'يعاني من أمراض مزمنة (has_chronic_disease)',
-            self::HasRecentInjury => 'لديه إصابة حرب حديثة (has_recent_injury)',
-
-            self::VitalStatusMartyred => 'حالة المواطن السيادية: شهيد (vital_status = martyred)',
-            self::VitalStatusMissing => 'حالة المواطن السيادية: مفقود (vital_status = missing)',
-            self::GenderFemale => 'المواطن أنثى / احتمالية معيل أسرة (gender = female)',
-
-            self::FamilyLarge => 'عائلة كبيرة العدد (أكثر من 5 أفراد)',
-            self::NoIncome => 'بلا دخل مادي شهري نهائياً (monthly_income = 0)',
-        };
+        return __('enums.PolicyKey.'.$this->value);
     }
 }

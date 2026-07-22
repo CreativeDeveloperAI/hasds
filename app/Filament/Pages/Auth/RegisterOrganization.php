@@ -9,12 +9,12 @@ use Filament\Auth\Pages\Register;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Model;
 
 class RegisterOrganization extends Register
 {
     use HasAuthDesignerLayout;
+
     protected function getAuthDesignerPageKey(): string
     {
         return 'register';
@@ -27,37 +27,37 @@ class RegisterOrganization extends Register
     {
         return $schema
             ->components([             // قسم بيانات المؤسسة
-            Section::make('بيانات المؤسسة الإغاثية')
-                ->description('أدخل معلومات الجمعية أو المبادرة لتوثيقها في النظام')
-                ->schema([
-                    TextInput::make('organization_name')
-                        ->label('اسم المؤسسة / الجمعية')
-                        ->required()
-                        ->maxLength(255),
-                    TextInput::make('license_number')
-                        ->required()
-                        ->label('رقم الترخيص الرسمي')
-                        ->maxLength(255),
-                    TextInput::make('hq_address')
-                        ->label('المقر الرئيسي الحالي')
-                        ->required()
-                        ->maxLength(255),
-                    TextInput::make('organization_phone')
-                        ->label('رقم هاتف المؤسسة')
-                        ->tel()
-                        ->required(),
-                ])->columns(1),
+                Section::make(__('messages.ui_35be4943'))
+                    ->description(__('messages.ui_f881e182'))
+                    ->schema([
+                        TextInput::make('organization_name')
+                            ->label(__('messages.ui_436e953f'))
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('license_number')
+                            ->required()
+                            ->label(__('messages.ui_90d8752e'))
+                            ->maxLength(255),
+                        TextInput::make('hq_address')
+                            ->label(__('messages.ui_3ff3db76'))
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('organization_phone')
+                            ->label(__('messages.ui_aefc476f'))
+                            ->tel()
+                            ->required(),
+                    ])->columns(1),
 
-            // قسم بيانات مدير الحساب
-            Section::make('بيانات مدير الحساب (المسؤول)')
-                ->description('هذه البيانات ستستخدم لتسجيل الدخول وإدارة اللوحة')
-                ->schema([
-                    $this->getNameFormComponent()->label('اسم المسؤول'),
-                    $this->getEmailFormComponent()->label('البريد الإلكتروني الرسمي للمسؤول'),
-                    $this->getPasswordFormComponent()->label('كلمة المرور'),
-                    $this->getPasswordConfirmationFormComponent()->label('تأكيد كلمة المرور'),
-                ])->columns(1),
-        ]);
+                // قسم بيانات مدير الحساب
+                Section::make(__('messages.ui_280efa5a'))
+                    ->description(__('messages.ui_efa31ead'))
+                    ->schema([
+                        $this->getNameFormComponent()->label(__('messages.ui_9f58298b')),
+                        $this->getEmailFormComponent()->label(__('messages.ui_9f255580')),
+                        $this->getPasswordFormComponent()->label(__('messages.ui_bcb75ee3')),
+                        $this->getPasswordConfirmationFormComponent()->label(__('messages.ui_6a507e0a')),
+                    ])->columns(1),
+            ]);
     }
 
     /**

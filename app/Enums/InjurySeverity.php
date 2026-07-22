@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum InjurySeverity: string implements HasLabel, HasColor
+enum InjurySeverity: string implements HasColor, HasLabel
 {
     case Critical = 'critical';
     case Moderate = 'moderate';
@@ -16,11 +16,7 @@ enum InjurySeverity: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Critical => 'إصابة حرجة جداً (أولوية قصوى)',
-            self::Moderate => 'إصابة متوسطة (أولوية ثانوية)',
-            self::Light => 'إصابة طفيفة (مستقرة)',
-        };
+        return __('enums.InjurySeverity.'.$this->value);
     }
 
     /**

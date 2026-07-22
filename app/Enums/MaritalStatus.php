@@ -16,11 +16,6 @@ enum MaritalStatus: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Married => 'متزوج/ة',
-            self::Single => 'أعزب/عزباء',
-            self::Widowed => 'أرمل/ة',
-            self::Divorced => 'مطلق/ة',
-        };
+        return __('enums.MaritalStatus.'.$this->value);
     }
 }

@@ -21,38 +21,38 @@ class OrganizationsTable
         return $table
             ->columns([
                 TextColumn::make('name')
-                    ->label('المؤسسة الشريكة')
+                    ->label(__('messages.ui_aa3b4b79'))
                     ->searchable()
                     ->sortable()
                     ->weight('bold'),
                 TextColumn::make('license_number')
-                    ->label('رقم الترخيص')
-                    ->placeholder('مبادرة محلية غير مرخصة')
+                    ->label(__('messages.ui_476367b4'))
+                    ->placeholder(__('messages.ui_9ecc4e30'))
                     ->searchable()
                     ->toggleable(),
                 TextColumn::make('primary_contact_person')
-                    ->label('المنسق المسؤول')
+                    ->label(__('messages.ui_847f7948'))
                     ->searchable(),
                 IconColumn::make('enable_cross_checking')
-                    ->label('منع التكرار')
+                    ->label(__('messages.ui_396bfa24'))
                     ->boolean()
                     ->alignCenter(),
                 TextColumn::make('status')
-                    ->label('الحالة الحالية')
+                    ->label(__('messages.ui_4e979f82'))
                     ->badge(),
                 TextColumn::make('created_at')
-                    ->label('تاريخ الانضمام')
+                    ->label(__('messages.ui_c7a79f3c'))
                     ->dateTime('Y-m-d')
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 SelectFilter::make('status')
-                    ->label('تصفية حسب الحالة المعيارية')
+                    ->label(__('messages.ui_fda97965'))
                     ->options(OrganizationStatus::class),
             ])
             ->recordActions([
-                EditAction::make()->label('إدارة وترخيص'),
+                EditAction::make()->label(__('messages.ui_1a3770b6')),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([

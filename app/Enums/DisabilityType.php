@@ -18,13 +18,6 @@ enum DisabilityType: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Physical => 'إعاقة حركية / جسدية',
-            self::Visual => 'إعاقة بصرية / كف بصر',
-            self::Hearing => 'إعاقة سمعية / صمم',
-            self::Mental => 'إعاقة ذهنية / عقلية',
-            self::Sensory => 'إعاقة نطق وتخاطب / حسية',
-            self::Multiple => 'إعاقات متعددة مركبة',
-        };
+        return __('enums.DisabilityType.'.$this->value);
     }
 }

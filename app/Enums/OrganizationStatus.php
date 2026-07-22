@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum OrganizationStatus: string implements HasLabel, HasColor
+enum OrganizationStatus: string implements HasColor, HasLabel
 {
     case Pending = 'pending';
     case Approved = 'approved';
@@ -16,11 +16,7 @@ enum OrganizationStatus: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Pending => 'قيد الانتظار والتدقيق الميداني',
-            self::Approved => 'مفعّل ومصادق عليه رسمياً',
-            self::Suspended => 'موقف مؤقتاً (مخالف للسياسات)',
-        };
+        return __('enums.OrganizationStatus.'.$this->value);
     }
 
     /**

@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum SurveyStatus: string implements HasLabel, HasColor
+enum SurveyStatus: string implements HasColor, HasLabel
 {
     case Active = 'active';
     case Archived = 'archived';
@@ -16,11 +16,7 @@ enum SurveyStatus: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Active => 'نشط ومعتمد ميدانياً',
-            self::Archived => 'مؤرشف (سجل تاريخي قديم)',
-            self::Conflict => 'متعارض (يتطلب مراجعة وتدقيق ميداني)',
-        };
+        return __('enums.SurveyStatus.'.$this->value);
     }
 
     /**

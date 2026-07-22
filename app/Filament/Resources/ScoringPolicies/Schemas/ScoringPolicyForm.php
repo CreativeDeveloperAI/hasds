@@ -15,57 +15,57 @@ class ScoringPolicyForm
         return $schema
             ->columns(1)
             ->components([
-                Section::make('معطيات المعيار وأولوية الاحتياج')
-                    ->description('تحديد الوزن النسبي للمتغير الاجتماعي أو الصحي ميدانياً')
+                Section::make(__('messages.ui_9fbb89fc'))
+                    ->description(__('messages.ui_1ca5f0c3'))
                     ->schema([
                         TextInput::make('policy_name')
-                            ->label('اسم المعيار بالعربية')
+                            ->label(__('messages.ui_2a10d32d'))
                             ->required()
-                            ->placeholder('مثال: نقاط الإقامة في خيمة هشة'),
+                            ->placeholder(__('messages.ui_5032547a')),
                         Select::make('policy_key')
-                            ->label('المؤشر الميداني المربوط (قاعدة البيانات)')
+                            ->label(__('messages.ui_203d9b74'))
                             ->required()
                             ->options([
                                 // مؤشرات النزوح والمأوى
-                                'is_displaced' => 'المواطن نازح في الميدان (is_displaced)',
-                                'shelter_tent' => 'نوع المأوى الحالي: خيمة (current_shelter_type = tent)',
-                                'shelter_center' => 'نوع المأوى الحالي: مركز إيواء (current_shelter_type = shelter_center)',
+                                'is_displaced' => __('messages.ui_d911aa74'),
+                                'shelter_tent' => __('messages.ui_db8f2b17'),
+                                'shelter_center' => __('messages.ui_278a5420'),
 
                                 // مؤشرات صحية وطبية (Pivot)
-                                'has_disability' => 'المواطن من ذوي الاحتياجات الخاصة (has_disability)',
-                                'has_chronic_disease' => 'يعاني من أمراض مزمنة (has_chronic_disease)',
-                                'has_recent_injury' => 'لديه إصابة حرب حديثة (has_recent_injury)',
+                                'has_disability' => __('messages.ui_c1c3ebdf'),
+                                'has_chronic_disease' => __('messages.ui_79d12fb0'),
+                                'has_recent_injury' => __('messages.ui_698e5e6f'),
 
                                 // مؤشرات سيادية (Sovereign Beneficiary)
-                                'vital_status_martyred' => 'حالة المواطن السيادية: شهيد (vital_status = martyred)',
-                                'vital_status_missing' => 'حالة المواطن السيادية: مفقود (vital_status = missing)',
-                                'gender_female' => 'المواطن أنثى / احتمالية معيل أسرة (gender = female)',
+                                'vital_status_martyred' => __('messages.ui_bf821437'),
+                                'vital_status_missing' => __('messages.ui_03c47f01'),
+                                'gender_female' => __('messages.ui_f7117bfb'),
 
                                 // مؤشرات مركبة ديموغرافية واقتصادية
-                                'family_large' => 'عائلة كبيرة العدد (أكثر من 5 أفراد)',
-                                'no_income' => 'بلا دخل مادي شهري نهائياً (monthly_income = 0)',
+                                'family_large' => __('messages.ui_9e2d1605'),
+                                'no_income' => __('messages.ui_be2d80d6'),
                             ])
                             ->disabled(fn ($record) => $record !== null) // حظر التغيير بعد الإنشاء للحفاظ على استقرار الكود
-                            ->helperText('اختر الحقل التقني المراد ربط النقاط به ليقوم محرك الاحتساب بمطابقته تلقائياً ومنع الأخطاء الإملائية.'),
+                            ->helperText(__('messages.ui_fbc73678')),
 
                         Select::make('category')
-                            ->label('تصنيف المؤشر')
+                            ->label(__('messages.ui_3ea61794'))
                             ->options([
-                                'social' => 'مؤشرات اجتماعية وديموغرافية',
-                                'health' => 'مؤشرات طبية وصحية',
-                                'shelter' => 'مؤشرات النزوح والمأوى',
-                                'financial' => 'مؤشرات مادية واقتصادية',
+                                'social' => __('messages.ui_d37e46c6'),
+                                'health' => __('messages.ui_58cf2eca'),
+                                'shelter' => __('messages.ui_1a57b530'),
+                                'financial' => __('messages.ui_3262c091'),
                             ])
                             ->required(),
                         TextInput::make('points_weight')
-                            ->label('النقاط الممنوحة (من 100)')
+                            ->label(__('messages.ui_cb36e525'))
                             ->numeric()
                             ->required()
                             ->minValue(0)
                             ->maxValue(100)
-                            ->placeholder('مثال: 25'),
+                            ->placeholder(__('messages.ui_9b0bb84c')),
                         Toggle::make('is_active')
-                            ->label('تفعيل هذا المعيار في الاحتساب الفوري')
+                            ->label(__('messages.ui_376b8ce0'))
                             ->default(true),
                     ])->columns(4),
             ]);

@@ -16,11 +16,6 @@ enum AssistancePackageType: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Food => 'سلة غذائية / معلبات / خضار',
-            self::Cash => 'قسيمة نقدية (شيكل)',
-            self::Medical => 'مستلزمات طبية وأدوية',
-            self::Clothing => 'كسوة شتاء / ملابس وأغطية',
-        };
+        return __('enums.AssistancePackageType.'.$this->value);
     }
 }

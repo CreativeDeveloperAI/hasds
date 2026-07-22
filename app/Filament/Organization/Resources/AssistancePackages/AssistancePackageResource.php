@@ -19,11 +19,29 @@ use Filament\Tables\Table;
 class AssistancePackageResource extends Resource
 {
     protected static ?string $model = AssistancePackage::class;
-    protected static ?string $navigationLabel = 'إدارة وتوزيع المساعدات';
-    protected static ?string $pluralModelLabel = 'حزم المساعدات الإغاثية';
-    protected static ?string $modelLabel = 'حزمة مساعدة';
-    protected static string|null|\UnitEnum $navigationGroup = 'العمليات الميدانية';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.resource_144e69dc');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.resource_f45a3b3a');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('messages.resource_e9a36844');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('messages.resource_1264f55c');
+    }
+
     protected static ?int $navigationSort = 3;
+
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedGift;
 
     public static function form(Schema $schema): Schema

@@ -17,12 +17,6 @@ enum CurrentShelterType: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Tent => 'خيمة قماشية / عازل نايلون بمخيمات النزوح',
-            self::ShelterCenter => 'مركز إيواء جماعي (مدرسة، مشفى، مرفق عام)',
-            self::RentApartment => 'شقة مستأجرة (توزيع نفقات سكن)',
-            self::HostFamily => 'مستضاف لدى أقارب / أصدقاء بالمنزل',
-            self::Home => 'المنزل الأصلي للمواطن (غير مدمر بالكامل)',
-        };
+        return __('enums.CurrentShelterType.'.$this->value);
     }
 }

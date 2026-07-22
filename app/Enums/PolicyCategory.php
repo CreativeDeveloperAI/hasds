@@ -16,11 +16,6 @@ enum PolicyCategory: string implements HasLabel
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Social => 'مؤشرات اجتماعية وديموغرافية',
-            self::Health => 'مؤشرات طبية وصحية',
-            self::Shelter => 'مؤشرات النزوح والمأوى',
-            self::Financial => 'مؤشرات مادية واقتصادية',
-        };
+        return __('enums.PolicyCategory.'.$this->value);
     }
 }

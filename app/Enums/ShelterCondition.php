@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum ShelterCondition: string implements HasLabel, HasColor
+enum ShelterCondition: string implements HasColor, HasLabel
 {
     case Bad = 'bad';
     case Acceptable = 'acceptable';
@@ -16,11 +16,7 @@ enum ShelterCondition: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Bad => 'مهترئ / غير صالح للاستخدام الإنساني',
-            self::Acceptable => 'مقبول / يحتاج لصيانات خفيفة',
-            self::Good => 'سليم / بحالة جيدة جداً',
-        };
+        return __('enums.ShelterCondition.'.$this->value);
     }
 
     /**

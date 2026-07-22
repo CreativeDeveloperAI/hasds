@@ -18,46 +18,46 @@ class OrganizationForm
     {
         return $schema
             ->components([
-              Section::make('المعلومات الأساسية والترخيص')
-                    ->description('البيانات الرسمية وهوية المؤسسة الشريكة')
+                Section::make(__('messages.ui_91ef9f2c'))
+                    ->description(__('messages.ui_d0efbed5'))
                     ->schema([
                         TextInput::make('name')
-                            ->label('اسم المؤسسة الشريكة')
-                            ->placeholder('مثال: جمعية غزة للإغاثة والتنمية')
+                            ->label(__('messages.ui_5bb4f592'))
+                            ->placeholder(__('messages.ui_ae05b888'))
                             ->required()
                             ->maxLength(255),
                         TextInput::make('license_number')
-                            ->label('رقم الترخيص الرسمي')
-                            ->placeholder('مثال: 7023/ج')
+                            ->label(__('messages.ui_90d8752e'))
+                            ->placeholder(__('messages.ui_21e9f2f5'))
                             ->maxLength(100),
                         TextInput::make('email')
-                            ->label('البريد الإلكتروني الرسمي')
+                            ->label(__('messages.ui_96345055'))
                             ->email()
                             ->required()
                             ->unique(ignoreRecord: true),
                         TextInput::make('phone')
-                            ->label('رقم هاتف التواصل')
+                            ->label(__('messages.ui_1dd8263e'))
                             ->tel()
                             ->required(),
                     ])->columns(2),
 
-                Section::make('العمليات الميدانية والحوكمة')
-                    ->description('الخيارات التشغيلية للتحكم بنزاهة التوزيع ومقرات العمل')
+                Section::make(__('messages.ui_2f706591'))
+                    ->description(__('messages.ui_205e05a7'))
                     ->schema([
                         TextInput::make('hq_address')
-                            ->label('المقر الميداني النشط حالياً في غزة')
-                            ->placeholder('مثال: دير البلح - بجوار مستشفى شهداء الأقصى')
+                            ->label(__('messages.ui_ba1711d1'))
+                            ->placeholder(__('messages.ui_04d7604c'))
                             ->required(),
                         TextInput::make('primary_contact_person')
-                            ->label('اسم المنسق الميداني المسؤول')
-                            ->placeholder('الاسم الرباعي للمنسق')
+                            ->label(__('messages.ui_8ed176f6'))
+                            ->placeholder(__('messages.ui_858d304d'))
                             ->required(),
                         Toggle::make('enable_cross_checking')
-                            ->label('تفعيل التدقيق المتقاطع لمنع التكرار (Anti-Double-Dipping)')
-                            ->helperText('عند تفعيل هذا الخيار، سيتم حظر صرف المساعدات المزدوجة لهذا الشريك مع بقية الشركاء تلقائياً.')
+                            ->label(__('messages.ui_1fee96b4'))
+                            ->helperText(__('messages.ui_f1698170'))
                             ->default(true),
                         Select::make('status')
-                            ->label('حالة الحساب والمصادقة')
+                            ->label(__('messages.ui_89583334'))
                             ->options(OrganizationStatus::class) // استدعاء مباشر لـ Enum حالة الحساب
                             ->required()
                             ->default(OrganizationStatus::Pending->value),

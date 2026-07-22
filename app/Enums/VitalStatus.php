@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum VitalStatus: string implements HasLabel, HasColor
+enum VitalStatus: string implements HasColor, HasLabel
 {
     case Alive = 'alive';
     case Martyred = 'martyred';
@@ -16,11 +16,7 @@ enum VitalStatus: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Alive => 'على قيد الحياة',
-            self::Martyred => 'شهيد (رحمه الله)',
-            self::Missing => 'مفقود (لم يُعثر عليه)',
-        };
+        return __('enums.VitalStatus.'.$this->value);
     }
 
     /**

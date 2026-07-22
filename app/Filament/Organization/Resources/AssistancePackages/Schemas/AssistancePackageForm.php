@@ -33,42 +33,42 @@ class AssistancePackageForm
                         // الجزء الأيمن: استمارة حزمة المساعدة وشروط الاستهداف الموسعة
                         Grid::make(1)
                             ->schema([
-                                Section::make('المعلومات الأساسية للمساعدة')
-                                    ->description('تعريف طبيعة المساعدة والكميات المتاحة للصرف الميداني')
+                                Section::make(__('messages.ui_adb52785'))
+                                    ->description(__('messages.ui_69e610b9'))
                                     ->schema([
                                         TextInput::make('title')
-                                            ->label('اسم المنحة / حزمة المساعدة')
-                                            ->placeholder('مثال: سلة الخضار الطازجة للأسر المتعففة')
+                                            ->label(__('messages.ui_4965458d'))
+                                            ->placeholder(__('messages.ui_d560100c'))
                                             ->required()
                                             ->maxLength(255),
 
                                         Select::make('package_type')
-                                            ->label('نوع المساعدة الموزعة')
+                                            ->label(__('messages.ui_36a1f8be'))
                                             ->options(AssistancePackageType::class) // استخدام الـ Enum المربوط للنوع
                                             ->required()
                                             ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                         TextInput::make('total_quantity')
-                                            ->label('إجمالي عدد الحصص المتوفرة للتوزيع')
+                                            ->label(__('messages.ui_e04b1310'))
                                             ->numeric()
                                             ->required()
                                             ->minValue(1)
-                                            ->placeholder('مثال: 500'),
+                                            ->placeholder(__('messages.ui_e7b058e5')),
                                         Textarea::make('description')
-                                        ->label('محتويات الحزمة/وصف عن الحزمة')
-                                        ->columnSpanFull()
+                                            ->label(__('messages.ui_47c94644'))
+                                            ->columnSpanFull(),
                                     ])->columns(3),
-                                Section::make('محرك التدقيق المتقاطع ومنع الصرف المكرر (Anti-Double-Dipping Engine)')
-                                    ->description('التحقق التلقائي من عدم حصول العائلات على مساعدات متقاربة تحقيقاً للعدالة ومطابقة معايير الحظر اللحظي')
+                                Section::make(__('messages.ui_bc9bc28c'))
+                                    ->description(__('messages.ui_34881d66'))
                                     ->schema([
                                         Grid::make(3)
                                             ->schema([
                                                 Select::make('target_prev_assistance_filter')
-                                                    ->label('حالة فحص الاستفادة السابقة')
+                                                    ->label(__('messages.ui_f76af8f3'))
                                                     ->options([
-                                                        'none' => 'لا تفعل (تجاوز الفحص)',
-                                                        'received' => 'استهدف فقط من استلموا سابقاً',
-                                                        'not_received' => 'استبعد من استلموا سابقاً (منع التكرار ⚠️)',
+                                                        'none' => __('messages.ui_1bc3120e'),
+                                                        'received' => __('messages.ui_f725238b'),
+                                                        'not_received' => __('messages.ui_b8f76f1c'),
                                                     ])
                                                     ->default('none')
                                                     ->required()
@@ -76,50 +76,50 @@ class AssistancePackageForm
                                                     ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                                 Select::make('target_prev_assistance_type')
-                                                    ->label('نوع المساعدة السابقة المراد التحقق منها')
+                                                    ->label(__('messages.ui_96cfc9d2'))
                                                     ->options([
-                                                        'any' => 'أي نوع مساعدة إغاثية',
-                                                        'food' => 'مساعدات غذائية فقط',
-                                                        'cash' => 'مساعدات نقدية فقط',
-                                                        'medical' => 'مستلزمات طبية وأدوية',
-                                                        'clothing' => 'كسوة وملابس شتوية',
+                                                        'any' => __('messages.ui_d3a52aff'),
+                                                        'food' => __('messages.ui_82ca845c'),
+                                                        'cash' => __('messages.ui_fcf36bc0'),
+                                                        'medical' => __('messages.ui_513fd73e'),
+                                                        'clothing' => __('messages.ui_a9cdbeb3'),
                                                     ])
-                                                    ->placeholder('اختر نوع الصرف للتحقق')
+                                                    ->placeholder(__('messages.ui_4366e3f2'))
                                                     ->visible(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->required(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->live()
                                                     ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                                 TextInput::make('target_prev_assistance_days')
-                                                    ->label('المدى الزمني للمطابقة والتحقق (بالأيام)')
+                                                    ->label(__('messages.ui_869d7ace'))
                                                     ->numeric()
                                                     ->default(30)
                                                     ->minValue(1)
-                                                    ->placeholder('مثال: 30 يوم')
+                                                    ->placeholder(__('messages.ui_62fa30dd'))
                                                     ->visible(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->required(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->live()
-                                                    ->helperText('مثال: 30 يوماً للتحقق من الصرف الحالي، أو يومين للحملات العاجلة')
+                                                    ->helperText(__('messages.ui_a949e46c'))
                                                     ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
                                             ]),
                                     ]),
 
-                                Section::make('محددات استحقاق الاحتياج والنقاط')
-                                    ->description('حصر الاستهداف بناءً على درجات الأولوية المحسوبة بنظام النقاط')
+                                Section::make(__('messages.ui_7d663541'))
+                                    ->description(__('messages.ui_0c043b42'))
                                     ->schema([
                                         Grid::make(2)
                                             ->schema([
                                                 TextInput::make('target_min_score')
-                                                    ->label('الحد الأدنى لنقاط الاستحقاق الميداني (Min Score)')
+                                                    ->label(__('messages.ui_5a9c7d10'))
                                                     ->numeric()
                                                     ->default(0)
                                                     ->minValue(0)
                                                     ->maxValue(100)
                                                     ->live()
-                                                    ->helperText('استهداف الأسر الأكثر احتياجاً فقط بدءاً من هذه الدرجة'),
+                                                    ->helperText(__('messages.ui_6ca0ea75')),
 
                                                 TextInput::make('target_max_score')
-                                                    ->label('الحد الأقصى لنقاط الاستحقاق الميداني (Max Score)')
+                                                    ->label(__('messages.ui_91508033'))
                                                     ->numeric()
                                                     ->default(100)
                                                     ->minValue(0)
@@ -128,95 +128,95 @@ class AssistancePackageForm
                                             ]),
                                     ]),
 
-                                Section::make('محرك الاستهداف الديموغرافي والسيادي المطور (Targeting Engine)')
-                                    ->description('تصفية وفلترة العائلات بناءً على معطياتها الشخصية والاجتماعية المسجلة بالسجل الوطني')
+                                Section::make(__('messages.ui_159ea5f0'))
+                                    ->description(__('messages.ui_64e39294'))
                                     ->schema([
                                         Grid::make(3)
                                             ->schema([
                                                 Select::make('target_gender')
-                                                    ->label('جنس رب الأسرة')
+                                                    ->label(__('messages.ui_e0947ce4'))
                                                     ->options(Gender::class)
                                                     ->nullable()
                                                     ->live()
-                                                    ->placeholder('الجميع (ذكور وإناث)'),
+                                                    ->placeholder(__('messages.ui_b673e5c8')),
 
                                                 Select::make('target_marital_status')
-                                                    ->label('الحالة الاجتماعية المستهدفة')
+                                                    ->label(__('messages.ui_b2bb1eb5'))
                                                     ->options(MaritalStatus::class)
                                                     ->nullable()
                                                     ->live()
-                                                    ->placeholder('الجميع (متزوج، أرمل، مطلق...)')
-                                                    ->helperText('مثال: أرملة لاستهداف الأرامل فقط'),
+                                                    ->placeholder(__('messages.ui_06290c4b'))
+                                                    ->helperText(__('messages.ui_8c1ad9b2')),
 
                                                 Select::make('target_vital_status')
-                                                    ->label('الوضع الحيوي لرب الأسرة')
+                                                    ->label(__('messages.ui_02bdfcea'))
                                                     ->options(VitalStatus::class)
                                                     ->nullable()
                                                     ->live()
-                                                    ->placeholder('الجميع (أحياء ومفقودين...)')
-                                                    ->helperText('مثال: شهيد لاستهداف أسر الشهداء الفاقدة للمعيل'),
+                                                    ->placeholder(__('messages.ui_e4a4063d'))
+                                                    ->helperText(__('messages.ui_43e29986')),
                                             ]),
 
-                                        Section::make('معايير التركيبة الأسرية والاحتياجات الميدانية الخاصة')
+                                        Section::make(__('messages.ui_34d60017'))
                                             ->compact()
                                             ->schema([
                                                 Grid::make(3)
                                                     ->schema([
                                                         Toggle::make('target_has_children_under_5')
-                                                            ->label('يوجد أطفال دون سن الـ 5 سنوات')
+                                                            ->label(__('messages.ui_bd3da1f3'))
                                                             ->live(),
 
                                                         Toggle::make('target_has_elderly')
-                                                            ->label('يوجد كبار سن بالأسرة (فوق 60 سنة)')
+                                                            ->label(__('messages.ui_bf6e9262'))
                                                             ->live(),
 
                                                         Toggle::make('target_has_pregnant_or_lactating')
-                                                            ->label('يوجد نساء حوامل أو مرضعات بالأسرة')
+                                                            ->label(__('messages.ui_980db63e'))
                                                             ->live(),
                                                     ]),
                                             ]),
                                     ]),
 
-                                Section::make('محددات الوضع الصحي والطبي الميداني')
-                                    ->description('فرز الأسر بناءً على وجود احتياج طبي أو إعاقة حركية مسجلة ميدانياً')
+                                Section::make(__('messages.ui_ce4bc60d'))
+                                    ->description(__('messages.ui_9defaf01'))
                                     ->schema([
                                         Grid::make(3)
                                             ->schema([
                                                 Toggle::make('target_has_disability')
-                                                    ->label('وجود حالات إعاقة حركية/جسدية بالأسرة')
+                                                    ->label(__('messages.ui_bb4add0d'))
                                                     ->live(),
 
                                                 Toggle::make('target_has_recent_injury')
-                                                    ->label('وجود مصابي حرب وإصابات حديثة بالأسرة')
+                                                    ->label(__('messages.ui_87e2847f'))
                                                     ->live(),
 
                                                 Toggle::make('target_has_chronic_disease')
-                                                    ->label('وجود حالات تعاني من أمراض مزمنة')
+                                                    ->label(__('messages.ui_a27a3e47'))
                                                     ->live(),
                                             ]),
                                     ]),
 
-                                Section::make('محددات السكن ومخيمات النزوح الحالية')
-                                    ->description('حصر الاستهداف بناءً على الموقع الجغرافي للمأوى والخيام')
+                                Section::make(__('messages.ui_c7e76487'))
+                                    ->description(__('messages.ui_3187eb08'))
                                     ->schema([
                                         Grid::make(3)
                                             ->schema([
                                                 Toggle::make('target_is_displaced')
-                                                    ->label('استهداف النازحين فقط في الميدان')
+                                                    ->label(__('messages.ui_f908e209'))
                                                     ->live(),
 
                                                 TextInput::make('target_displacement_location')
-                                                    ->label('منطقة أو مخيم النزوح الحالي')
-                                                    ->placeholder('مثال: دير البلح')
+                                                    ->label(__('messages.ui_60cf56ec'))
+                                                    ->placeholder(__('messages.ui_5854c7e7'))
                                                     ->visible(fn (Get $get) => $get('target_is_displaced') === true)
                                                     ->live(),
 
                                                 Select::make('target_shelter_type')
-                                                    ->label('نوع مأوى النزوح المستهدف')
+                                                    ->label(__('messages.ui_01cfa937'))
                                                     ->options(CurrentShelterType::class)
                                                     ->visible(fn (Get $get) => $get('target_is_displaced') === true)
                                                     ->live()
-                                                    ->placeholder('كافة أنواع المآوي والخيام'),
+                                                    ->placeholder(__('messages.ui_2c80f7d9')),
                                             ]),
                                     ]),
                             ])->columnSpan(2),
@@ -224,11 +224,11 @@ class AssistancePackageForm
                         // الجزء الأيسر: محرك التقدير اللحظي والجدولة والنشاط
                         Grid::make(1)
                             ->schema([
-                                Section::make('مؤشر التقدير والتحليل اللحظي')
-                                    ->description('حساب فوري للأسر المطابقة بناءً على الفلاتر المدخلة ونطاق عمل جمعيتك')
+                                Section::make(__('messages.ui_632613cd'))
+                                    ->description(__('messages.ui_af1044b9'))
                                     ->schema([
                                         Placeholder::make('matching_count')
-                                            ->label('عدد الأسر المستحقة حالياً')
+                                            ->label(__('messages.ui_c463375b'))
                                             ->content(function (Get $get) {
                                                 $tenantId = Filament::getTenant()?->id;
 
@@ -298,19 +298,18 @@ class AssistancePackageForm
                                             }),
                                     ]),
 
-                                Section::make('الجدولة الزمنية والنشاط')
+                                Section::make(__('messages.ui_aac26e05'))
                                     ->schema([
                                         DatePicker::make('start_date')
-                                            ->label('تاريخ بدء التوزيع')
+                                            ->label(__('messages.ui_a9aceb5d'))
                                             ->default(now())
                                             ->required(),
 
                                         DatePicker::make('end_date')
-                                            ->label('تاريخ انتهاء التوزيع الميداني'),
-
+                                            ->label(__('messages.ui_4b9d6ebd')),
 
                                         Select::make('status')
-                                            ->label('حالة الحزمة')
+                                            ->label(__('messages.ui_1bcb4617'))
                                             ->options(AssistancePackageStatus::class) // استخدام الـ Enum المربوط للحالة
                                             ->required()
                                             ->default(AssistancePackageStatus::Active->value),

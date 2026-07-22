@@ -19,10 +19,27 @@ class OrganizationResource extends Resource
     protected static ?string $model = Organization::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedBuildingOffice2;
-    protected static ?string $navigationLabel = 'المؤسسات الشريكة';
-    protected static ?string $pluralModelLabel = 'المؤسسات الشريكة';
-    protected static ?string $modelLabel = 'مؤسسة';
-    protected static string|null|\UnitEnum $navigationGroup = 'إدارة النظام';
+
+    public static function getNavigationLabel(): string
+    {
+        return __('messages.resource_a1157ade');
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return __('messages.resource_4fe8dacc');
+    }
+
+    public static function getModelLabel(): string
+    {
+        return __('messages.resource_484bf6a8');
+    }
+
+    public static function getNavigationGroup(): ?string
+    {
+        return __('messages.resource_e0242447');
+    }
+
     public static function form(Schema $schema): Schema
     {
         return OrganizationForm::configure($schema);

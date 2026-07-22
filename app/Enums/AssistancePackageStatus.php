@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
+use Filament\Support\Contracts\HasLabel;
 
-enum AssistancePackageStatus: string implements HasLabel, HasColor
+enum AssistancePackageStatus: string implements HasColor, HasLabel
 {
     case Active = 'active';
     case Completed = 'completed';
@@ -16,11 +16,7 @@ enum AssistancePackageStatus: string implements HasLabel, HasColor
      */
     public function getLabel(): ?string
     {
-        return match ($this) {
-            self::Active => 'نشط وجاهز للصرف الميداني',
-            self::Completed => 'تم التوزيع بنجاح وإغلاق الدورة',
-            self::Paused => 'موقوف مؤقتاً لأسباب تشغيلية',
-        };
+        return __('enums.AssistancePackageStatus.'.$this->value);
     }
 
     /**

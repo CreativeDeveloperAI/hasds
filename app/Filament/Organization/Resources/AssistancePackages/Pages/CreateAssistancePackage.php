@@ -2,10 +2,10 @@
 
 namespace App\Filament\Organization\Resources\AssistancePackages\Pages;
 
-use App\Filament\Organization\Resources\AssistancePackages\AssistancePackageResource;
-use App\Models\Beneficiary;
-use App\Models\AssistanceDistribution;
 use App\Enums\DistributionStatus;
+use App\Filament\Organization\Resources\AssistancePackages\AssistancePackageResource;
+use App\Models\AssistanceDistribution;
+use App\Models\Beneficiary;
 use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Log;
@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Log;
 class CreateAssistancePackage extends CreateRecord
 {
     protected static string $resource = AssistancePackageResource::class;
-
 
     protected function afterCreate(): void
     {
@@ -45,26 +44,45 @@ class CreateAssistancePackage extends CreateRecord
             }
         }
 
-        if ($package->target_has_disability) $query->whereRelation('organizations', 'has_disability', true);
-        if ($package->target_has_recent_injury) $query->whereRelation('organizations', 'has_recent_injury', true);
-        if ($package->target_has_chronic_disease) $query->whereRelation('organizations', 'has_chronic_disease', true);
+        if ($package->target_has_disability) {
+            $query->whereRelation('organizations', 'has_disability', true);
+        }
+        if ($package->target_has_recent_injury) {
+            $query->whereRelation('organizations', 'has_recent_injury', true);
+        }
+        if ($package->target_has_chronic_disease) {
+            $query->whereRelation('organizations', 'has_chronic_disease', true);
+        }
 
-        if ($package->target_has_children_under_5) $query->whereRelation('organizations', 'children_under_5_count', '>', 0);
-        if ($package->target_has_elderly) $query->whereRelation('organizations', 'elderly_count', '>', 0);
-        if ($package->target_has_pregnant_or_lactating) $query->whereRelation('organizations', 'pregnant_or_lactating_count', '>', 0);
+        if ($package->target_has_children_under_5) {
+            $query->whereRelation('organizations', 'children_under_5_count', '>', 0);
+        }
+        if ($package->target_has_elderly) {
+            $query->whereRelation('organizations', 'elderly_count', '>', 0);
+        }
+        if ($package->target_has_pregnant_or_lactating) {
+            $query->whereRelation('organizations', 'pregnant_or_lactating_count', '>', 0);
+        }
 
         // ملاحظة: الحقول الموجودة في جدول Beneficiary الأساسي (مثل gender) تبقى كما هي
-        if ($package->target_gender) $query->where('gender', $package->target_gender);
-        if ($package->target_marital_status) $query->where('marital_status', $package->target_marital_status);
-        if ($package->target_vital_status) $query->where('vital_status', $package->target_vital_status);
+        if ($package->target_gender) {
+            $query->where('gender', $package->target_gender);
+        }
+        if ($package->target_marital_status) {
+            $query->where('marital_status', $package->target_marital_status);
+        }
+        if ($package->target_vital_status) {
+            $query->where('vital_status', $package->target_vital_status);
+        }
 
         // ... باقي منطق التدقيق المتقاطع (يبقى كما هو)
         $beneficiaries = $query->limit($package->total_quantity)->get();
 
-        Log::info("AssistancePackage: Found " . $beneficiaries->count() . " beneficiaries. Filters applied: " . json_encode($package->only(['target_min_score', 'target_gender', 'target_is_displaced'])));
+        Log::info('AssistancePackage: Found '.$beneficiaries->count().' beneficiaries. Filters applied: '.json_encode($package->only(['target_min_score', 'target_gender', 'target_is_displaced'])));
 
         if ($beneficiaries->isEmpty()) {
-            Log::warning("AssistancePackage: No beneficiaries matched. Check if the beneficiaries actually have priority_score or organization linked.");
+            Log::warning('AssistancePackage: No beneficiaries matched. Check if the beneficiaries actually have priority_score or organization linked.');
+
             return;
         }
 
@@ -77,12 +95,11 @@ class CreateAssistancePackage extends CreateRecord
                 [
                     'organization_id' => $tenantId,
                     'distribution_status' => DistributionStatus::Pending->value,
-                    'notes' => 'إضافة تلقائية بواسطة محرك الاستهداف'
+                    'notes' => __('messages.ui_5cf0bea3'),
                 ]
             );
         }
 
-        Log::info("AssistancePackage: Successfully created/updated distributions for " . $beneficiaries->count() . " beneficiaries.");
+        Log::info('AssistancePackage: Successfully created/updated distributions for '.$beneficiaries->count().' beneficiaries.');
     }
-
 }
