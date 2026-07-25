@@ -86,4 +86,10 @@ return [
         'martyred' => 'شهيد (رحمه الله)',
         'missing' => 'مفقود (لم يُعثر عليه)',
     ],
+    'AiPriorityScoreStatus' => [
+        'completed' => 'تم احتساب مدى الاحتياج',
+        'pending' => 'قيد الانتظار',
+        'processing' => 'جاري احتساب مدى الاحتياج',
+        'failed'=>'فشل الاحتساب'
+    ]
 ];

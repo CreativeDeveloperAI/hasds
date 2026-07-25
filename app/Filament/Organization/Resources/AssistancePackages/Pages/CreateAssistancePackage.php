@@ -33,6 +33,14 @@ class CreateAssistancePackage extends CreateRecord
                 ->whereRelation('organizations', 'priority_score', '<=', $max);
         }
 
+        // استخدام whereRelation للفلترة داخل الـ Pivot
+        if ($package->target_min_score_ai !== null || $package->target_max_score_ai !== null) {
+            $min = $package->target_min_score_ai ?? 0;
+            $max = $package->target_max_score_ai ?? 100;
+            $query->whereRelation('organizations', 'ai_priority_score', '>=', $min)
+                ->whereRelation('organizations', 'ai_priority_score', '<=', $max);
+        }
+
         // الفلاتر الأخرى يجب أن تنتقل إلى whereRelation أيضاً
         if ($package->target_is_displaced) {
             $query->whereRelation('organizations', 'is_displaced', true);

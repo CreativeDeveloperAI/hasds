@@ -86,4 +86,10 @@ return [
         'martyred' => 'Martyred (May God have mercy on them)',
         'missing' => 'Missing (Not Found)',
     ],
+    'AiPriorityScoreStatus' => [
+        'completed' => 'Completed',
+        'pending' => 'Pending',
+        'processing' => 'Processing',
+        'failed' => 'Failed',
+    ]
 ];

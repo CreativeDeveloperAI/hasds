@@ -72,7 +72,9 @@ class Beneficiary extends Authenticatable implements FilamentUser ,HasName
                 'priority_score',
                 'survey_status',
                 'surveyed_at',
-                'custom_fields'
+                'custom_fields',
+                'ai_priority_score_status',
+                'ai_priority_score'
             ])
             ->withTimestamps();
     }

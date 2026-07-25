@@ -46,7 +46,7 @@ class AssistancePackageForm
                                             ->label(__('messages.ui_36a1f8be'))
                                             ->options(AssistancePackageType::class) // استخدام الـ Enum المربوط للنوع
                                             ->required()
-                                            ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
+                                            ->disabled(fn($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                         TextInput::make('total_quantity')
                                             ->label(__('messages.ui_e04b1310'))
@@ -73,7 +73,7 @@ class AssistancePackageForm
                                                     ->default('none')
                                                     ->required()
                                                     ->live()
-                                                    ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
+                                                    ->disabled(fn($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                                 Select::make('target_prev_assistance_type')
                                                     ->label(__('messages.ui_96cfc9d2'))
@@ -85,10 +85,10 @@ class AssistancePackageForm
                                                         'clothing' => __('messages.ui_a9cdbeb3'),
                                                     ])
                                                     ->placeholder(__('messages.ui_4366e3f2'))
-                                                    ->visible(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
-                                                    ->required(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
+                                                    ->visible(fn(Get $get) => $get('target_prev_assistance_filter') !== 'none')
+                                                    ->required(fn(Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->live()
-                                                    ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
+                                                    ->disabled(fn($record) => $record?->status === AssistancePackageStatus::Completed),
 
                                                 TextInput::make('target_prev_assistance_days')
                                                     ->label(__('messages.ui_869d7ace'))
@@ -96,11 +96,11 @@ class AssistancePackageForm
                                                     ->default(30)
                                                     ->minValue(1)
                                                     ->placeholder(__('messages.ui_62fa30dd'))
-                                                    ->visible(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
-                                                    ->required(fn (Get $get) => $get('target_prev_assistance_filter') !== 'none')
+                                                    ->visible(fn(Get $get) => $get('target_prev_assistance_filter') !== 'none')
+                                                    ->required(fn(Get $get) => $get('target_prev_assistance_filter') !== 'none')
                                                     ->live()
                                                     ->helperText(__('messages.ui_a949e46c'))
-                                                    ->disabled(fn ($record) => $record?->status === AssistancePackageStatus::Completed),
+                                                    ->disabled(fn($record) => $record?->status === AssistancePackageStatus::Completed),
                                             ]),
                                     ]),
 
@@ -120,6 +120,25 @@ class AssistancePackageForm
 
                                                 TextInput::make('target_max_score')
                                                     ->label(__('messages.ui_91508033'))
+                                                    ->numeric()
+                                                    ->default(100)
+                                                    ->minValue(0)
+                                                    ->maxValue(100)
+                                                    ->live(),
+                                            ]),
+                                        Grid::make(2)
+                                            ->schema([
+                                                TextInput::make('target_min_score_ai')
+                                                    ->label(__('messages.ui_5a9c7d11'))
+                                                    ->numeric()
+                                                    ->default(0)
+                                                    ->minValue(0)
+                                                    ->maxValue(100)
+                                                    ->live()
+                                                    ->helperText(__('messages.ui_6ca0ea75')),
+
+                                                TextInput::make('target_max_score_ai')
+                                                    ->label(__('messages.ui_91508034'))
                                                     ->numeric()
                                                     ->default(100)
                                                     ->minValue(0)
@@ -208,13 +227,13 @@ class AssistancePackageForm
                                                 TextInput::make('target_displacement_location')
                                                     ->label(__('messages.ui_60cf56ec'))
                                                     ->placeholder(__('messages.ui_5854c7e7'))
-                                                    ->visible(fn (Get $get) => $get('target_is_displaced') === true)
+                                                    ->visible(fn(Get $get) => $get('target_is_displaced') === true)
                                                     ->live(),
 
                                                 Select::make('target_shelter_type')
                                                     ->label(__('messages.ui_01cfa937'))
                                                     ->options(CurrentShelterType::class)
-                                                    ->visible(fn (Get $get) => $get('target_is_displaced') === true)
+                                                    ->visible(fn(Get $get) => $get('target_is_displaced') === true)
                                                     ->live()
                                                     ->placeholder(__('messages.ui_2c80f7d9')),
                                             ]),
