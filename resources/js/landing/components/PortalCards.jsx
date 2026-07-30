@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   HiOutlineUser,
   HiOutlineBuildingOffice,
@@ -7,10 +8,8 @@ import {
 
 const portals = [
   {
+    id: "beneficiary",
     icon: <HiOutlineUser className="w-7 h-7" />,
-    title: "بوابة المستفيد",
-    desc: "تتيح للمواطنين فحص حالة الأولوية الخاصة بملفاتهم والوصول الآمن لرمز الاستلام الرقمي الفريد الخاص بالعائلة.",
-    link: "تسجيل دخول المستفيدين",
     href: "/beneficiary/portal",
     linear: "from-emerald-400 to-teal-500",
     iconColorRest: "text-emerald-500",
@@ -19,13 +18,10 @@ const portals = [
       "group-hover:bg-white group-hover:text-emerald-600 group-hover:border-transparent",
   },
   {
+    id: "organization",
     icon: <HiOutlineBuildingOffice className="w-7 h-7" />,
-    title: "بوابة الشركاء الإغاثي",
-    desc: "واجهة مخصصة للبلديات والمؤسسات والجمعيات لإدخال الحالات، إدارة شحنات المستودعات، وتفعيل ماسح الـ QR للتحقق الميداني.",
-    link: "تسجيل دخول المؤسسات",
     href: "/organization/login",
     secondaryHref: "/organization/register",
-    secondaryLink: "طلب اعتماد مؤسسة جديدة",
     linear: "from-blue-400 to-cyan-500",
     iconColorRest: "text-blue-500",
     iconBgRest: "bg-blue-50",
@@ -33,10 +29,8 @@ const portals = [
       "group-hover:bg-white group-hover:text-blue-600 group-hover:border-transparent",
   },
   {
+    id: "admin",
     icon: <HiOutlineCog6Tooth className="w-7 h-7" />,
-    title: "بوابة الإدارة المركزية",
-    desc: "لوحة تحكم عليا لمراقبة مؤشرات الأداء الحي، وإدارة حسابات الشركاء، وضبط معايير خوارزمية الترتيب والتقييم الذكي.",
-    link: "تسجيل دخول لوحة التحكم",
     href: "/admin/login",
     linear: "from-purple-400 to-indigo-500",
     iconColorRest: "text-purple-500",
@@ -74,6 +68,8 @@ const descVariants = {
 };
 
 export default function PortalCards() {
+  const { t } = useTranslation();
+
   return (
     <section id="portals" className="py-10 bg-gray-50/50">
       <div className="container mx-auto px-6 max-w-7xl">
@@ -117,7 +113,7 @@ export default function PortalCards() {
                   transition={globalTransition}
                   className="font-black text-xl mb-4 tracking-tight z-10"
                 >
-                  {portal.title}
+                  {t(`portals.${portal.id}.title`)}
                 </motion.h3>
 
                 <motion.p
@@ -125,24 +121,24 @@ export default function PortalCards() {
                   transition={globalTransition}
                   className="text-sm leading-relaxed mb-8 text-gray-500 font-medium px-2 grow z-10"
                 >
-                  {portal.desc}
+                  {t(`portals.${portal.id}.desc`)}
                 </motion.p>
 
                 <a
                   href={portal.href}
                   className={`block w-full text-sm font-bold py-3.5 rounded-xl border text-center shadow-sm z-10 transform transition-all duration-500 ease-in-out
                   bg-gray-50 text-gray-600 border-gray-100 cursor-pointer
-                  active:scale-95 group-hover:active:bg-white/90 
+                  active:scale-95 group-hover:active:bg-white/90
                   ${portal.btnStyles}`}
                 >
-                  {portal.link}
+                  {t(`portals.${portal.id}.link`)}
                 </a>
                 {portal.secondaryHref ? (
                   <a
                     href={portal.secondaryHref}
                     className="mt-3 text-sm font-bold text-blue-600 hover:text-blue-700 z-10"
                   >
-                    {portal.secondaryLink}
+                    {t(`portals.${portal.id}.secondaryLink`)}
                   </a>
                 ) : null}
               </motion.div>

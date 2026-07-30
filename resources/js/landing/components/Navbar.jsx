@@ -1,18 +1,24 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { HiBars3BottomRight, HiXMark } from "react-icons/hi2";
+import { useTranslation } from "react-i18next";
+import { HiBars3BottomRight, HiXMark, HiLanguage } from "react-icons/hi2";
 import logoImg from "../assets/HASDS logo.svg";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { t, i18n } = useTranslation();
 
   const navLinks = [
-    { name: "الرئيسية", href: "#hero" },
-    { name: "البوابات الذكية", href: "#portals" },
-    { name: "الحلول الميدانية", href: "#solutions" },
-    { name: "مصفوفة المعايير", href: "#matrix" },
-    { name: "الأداء والتقنيات", href: "#metrics" },
+    { name: t("navbar.home"), href: "#hero" },
+    { name: t("navbar.portals"), href: "#portals" },
+    { name: t("navbar.solutions"), href: "#solutions" },
+    { name: t("navbar.matrix"), href: "#matrix" },
+    { name: t("navbar.metrics"), href: "#metrics" },
   ];
+
+  const toggleLanguage = () => {
+    i18n.changeLanguage(i18n.language === "ar" ? "en" : "ar");
+  };
 
   return (
     <header className="bg-white/75 backdrop-blur-xl shadow-sm fixed top-0 left-0 right-0 z-50 border-b border-gray-100/80 transition-all">
@@ -40,8 +46,12 @@ export default function Navbar() {
         </div>
 
         <div className="hidden lg:block">
-          <button className="bg-linear-to-r from-teal-600 to-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-extrabold shadow-lg shadow-teal-600/20 hover:shadow-teal-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200">
-            تواصل معنا
+          <button
+            onClick={toggleLanguage}
+            className="flex items-center gap-2 bg-linear-to-r from-teal-600 to-emerald-600 text-white px-5 py-2.5 rounded-xl text-sm font-extrabold shadow-lg shadow-teal-600/20 hover:shadow-teal-600/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200"
+          >
+            <HiLanguage className="w-5 h-5" />
+            {t("navbar.switchTo")}
           </button>
         </div>
 
@@ -76,8 +86,12 @@ export default function Navbar() {
                   {link.name}
                 </a>
               ))}
-              <button className="bg-linear-to-r from-teal-600 to-emerald-600 text-white w-full py-3 rounded-xl font-extrabold mt-2 text-center shadow-md">
-                تواصل معنا
+              <button
+                onClick={toggleLanguage}
+                className="flex items-center justify-center gap-2 bg-linear-to-r from-teal-600 to-emerald-600 text-white w-full py-3 rounded-xl font-extrabold mt-2 text-center shadow-md"
+              >
+                <HiLanguage className="w-5 h-5" />
+                {t("navbar.switchTo")}
               </button>
             </div>
           </motion.div>

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import {
   HiOutlineShieldCheck,
   HiOutlineCpuChip,
@@ -7,25 +8,22 @@ import {
 
 const solutions = [
   {
+    id: "duplication",
     icon: <HiOutlineShieldCheck className="w-7 h-7" />,
-    title: "منع الإزدواجية",
-    desc: "الاعتماد على قاعدة بيانات هيكلية صارمة تمنع تكرار تقديم المساعدات المتطابقة لنفس المستفيد بشكل عشوائي، مما يحد من الهدر بنسبة 95%.",
     gradient: "from-emerald-400 to-teal-500",
     iconColorRest: "rgb(16 185 129)",
     iconBgRest: "rgba(16, 185, 129, 0.1)",
   },
   {
+    id: "prioritization",
     icon: <HiOutlineCpuChip className="w-7 h-7" />,
-    title: "ترتيب الأولويات الآلي",
-    desc: "دمج نماذج تعلم الآلة عبر بايثون لتحليل وتصنيف مستوى حالة العائلات بناءً على مصفوفة معايير متقدمة ومتعددة المحاور.",
     gradient: "from-blue-400 to-cyan-500",
     iconColorRest: "rgb(59 130 246)",
     iconBgRest: "rgba(59, 130, 246, 0.1)",
   },
   {
+    id: "emergency",
     icon: <HiOutlineClock className="w-7 h-7" />,
-    title: "الإستجابة لظروف الطوارئ",
-    desc: "دعم خطط التدخل السريع لمواجهة المستجدات الميدانية المفاجئة وتوليد مسارات توزيع طارئة ومعالجتها في أقل من 15 دقيقة.",
     gradient: "from-purple-400 to-indigo-500",
     iconColorRest: "rgb(168 85 247)",
     iconBgRest: "rgba(168, 85, 247, 0.1)",
@@ -73,16 +71,17 @@ const descVariants = {
 };
 
 export default function Solutions() {
+  const { t } = useTranslation();
+
   return (
     <section id="solutions" className="py-10 bg-gray-50/30">
       <div className="container mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-2xl md:text-4xl font-black text-gray-950 mb-4 tracking-tight">
-            المعالجة الذكية وحلول الثغرات الميدانية
+            {t("solutions.heading")}
           </h2>
           <p className="text-gray-500 max-w-xl mx-auto text-sm md:text-base font-medium">
-            تم بناء النظام لمعالجة المشاكل الحرجة التي تواجه العمل الإغاثي
-            التقليدي في قطاع غزة
+            {t("solutions.subheading")}
           </p>
         </div>
 
@@ -127,7 +126,7 @@ export default function Solutions() {
                     transition={globalTransition}
                     className="font-extrabold text-xl mb-3"
                   >
-                    {sol.title}
+                    {t(`solutions.items.${sol.id}.title`)}
                   </motion.h3>
 
                   <motion.p
@@ -135,7 +134,7 @@ export default function Solutions() {
                     transition={globalTransition}
                     className="text-sm leading-relaxed font-medium grow"
                   >
-                    {sol.desc}
+                    {t(`solutions.items.${sol.id}.desc`)}
                   </motion.p>
                 </div>
               </motion.div>

@@ -44,8 +44,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([
-//                AccountWidget::class,
-//                FilamentInfoWidget::class,
+                //                AccountWidget::class,
+                //                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -66,7 +66,7 @@ class AdminPanelProvider extends PanelProvider
                         ->media(asset('assets/img_1.png'))
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%')
-                    )
+                    ),
             ]);
     }
 }

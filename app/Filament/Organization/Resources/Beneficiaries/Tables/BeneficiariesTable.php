@@ -2,7 +2,6 @@
 
 namespace App\Filament\Organization\Resources\Beneficiaries\Tables;
 
-use App\Enums\AiPriorityScoreStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -33,15 +32,15 @@ class BeneficiariesTable
                 TextColumn::make('organizations.pivot.priority_score')
                     ->label(__('messages.ui_092d2588'))
                     ->badge()
-                    ->color(fn($state) => $state >= 75 ? 'danger' : ($state >= 40 ? 'warning' : 'success'))
+                    ->color(fn ($state) => $state >= 75 ? 'danger' : ($state >= 40 ? 'warning' : 'success'))
                     ->sortable(),
                 TextColumn::make('organizations.pivot.ai_priority_score_status')
-                    ->label('حالة حساب الأولوية')
+                    ->label(__('messages.ui_faa93007'))
                     ->badge(),
                 TextColumn::make('organizations.pivot.ai_priority_score')
                     ->label(__('messages.ui_092d2589'))
                     ->badge()
-                    ->color(fn($state) => $state >= 75 ? 'danger' : ($state >= 40 ? 'warning' : 'success'))
+                    ->color(fn ($state) => $state >= 75 ? 'danger' : ($state >= 40 ? 'warning' : 'success'))
                     ->sortable(),
             ])
             ->filters([

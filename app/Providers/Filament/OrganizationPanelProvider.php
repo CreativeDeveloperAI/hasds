@@ -48,8 +48,8 @@ class OrganizationPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Organization/Widgets'), for: 'App\Filament\Organization\Widgets')
             ->widgets([
-//                AccountWidget::class,
-//                FilamentInfoWidget::class,
+                //                AccountWidget::class,
+                //                FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
@@ -66,20 +66,20 @@ class OrganizationPanelProvider extends PanelProvider
                 Authenticate::class,
             ])->plugins([
                 AuthDesignerPlugin::make()
-                    ->defaults(fn(AuthPageConfig $config) => $config
-                    ->media(asset('assets/img_1.png')
-                    ))
-                    ->registration(fn(AuthPageConfig $config) => $config
+                    ->defaults(fn (AuthPageConfig $config) => $config
+                        ->media(asset('assets/img_1.png')
+                        ))
+                    ->registration(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->usingPage(RegisterOrganization::class)
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%')
                     )
-                    ->login(fn(AuthPageConfig $config) => $config
+                    ->login(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%') // Media takes 50% width
-                    )
+                    ),
 
             ]);
     }

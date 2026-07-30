@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const metrics = [
-  { title: "دقة الترتيب الذكي", value: "90 %" },
-  { title: "تقليص تكرار الصرف", value: "95 %" },
-  { title: "المستخدمين بالتوازي", value: "1000+" },
+  { key: "accuracy", value: "90 %" },
+  { key: "reduction", value: "95 %" },
+  { key: "users", value: "1000+" },
 ];
 
 const rowOneStack = [
@@ -28,19 +29,21 @@ const itemVariants = {
 };
 
 export default function TechMetrics() {
+  const { t, i18n } = useTranslation();
+
   return (
     <section
       id="metrics"
       className="py-20 bg-white flex items-center justify-center font-sans"
-      dir="rtl"
+      dir={i18n.dir()}
     >
       <div className="container mx-auto px-6 max-w-5xl text-center">
         <div className="mb-6">
           <h2 className="text-2xl md:text-3xl font-black text-gray-950 tracking-tight mb-3">
-            مؤشرات الأداء المستهدفة والتقنيات المستخدمة
+            {t("metrics.heading")}
           </h2>
           <p className="text-gray-400 font-bold text-base md:text-lg mb-12">
-            البيئة الهندسية للمشروع ومقاييس جودة الأداء البرمجي المعتمدة
+            {t("metrics.subheading")}
           </p>
         </div>
         <motion.div
@@ -58,9 +61,9 @@ export default function TechMetrics() {
             >
               <h3
                 style={{ color: "#346B68" }}
-                className="text-lل md:text-xl font-black mb-3"
+                className="text-lg md:text-xl font-black mb-3"
               >
-                {item.title}
+                {t(`metrics.items.${item.key}.title`)}
               </h3>
               <p
                 dir="ltr"
@@ -74,7 +77,7 @@ export default function TechMetrics() {
 
         <div className="mb-8">
           <h3 className="text-2xl md:text-3xl font-black text-gray-950 tracking-tight">
-            الهندسة البرمجية للنظام
+            {t("metrics.stackHeading")}
           </h3>
         </div>
         <div

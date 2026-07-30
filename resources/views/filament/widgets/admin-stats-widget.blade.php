@@ -14,10 +14,10 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                         </span>
-                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">نظام حوكمة المساعدات الإنسانية المركزي (HASDS)</span>
+                        <span class="text-xs font-bold uppercase tracking-widest text-indigo-400">{{ __('messages.ui_57cb8c0b') }}</span>
                     </div>
-                    <h2 class="text-3xl font-black tracking-tight mt-2 text-white">غرفة المتابعة والسيطرة الميدانية الموحدة</h2>
-                    <p class="text-slate-400 text-sm mt-1 max-w-2xl">إحصائيات سيادية فورية ترصد سلامة السجل الوطني للمستفيدين، وتراقب نزاهة الصرف المتقاطع لشركاء العمل الإغاثي المعتمدين بقطاع غزة.</p>
+                    <h2 class="text-3xl font-black tracking-tight mt-2 text-white">{{ __('messages.ui_58ba52e5') }}</h2>
+                    <p class="text-slate-400 text-sm mt-1 max-w-2xl">{{ __('messages.ui_886f00b9') }}</p>
                 </div>
 
                 <!-- نسبة الإنجاز والمساندة الوطنية الشاملة -->
@@ -31,8 +31,8 @@
                         <span class="absolute text-sm font-black text-white">{{ $nationalCompletionRate }}%</span>
                     </div>
                     <div>
-                        <div class="text-xs text-slate-400">معدل الإنجاز الوطني</div>
-                        <div class="text-lg font-bold text-white">لكافة حصص الإغاثة</div>
+                        <div class="text-xs text-slate-400">{{ __('messages.ui_2f99e83d') }}</div>
+                        <div class="text-lg font-bold text-white">{{ __('messages.ui_757ba075') }}</div>
                     </div>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                 <div class="absolute -right-6 -top-6 w-24 h-24 bg-indigo-50 dark:bg-indigo-950/20 rounded-full transition-all group-hover:scale-110"></div>
                 <div class="relative flex justify-between items-start">
                     <div>
-                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">السجل الوطني الموحد</span>
-                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">إجمالي المواطنين المسجلين</h3>
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">{{ __('messages.ui_a2431bdf') }}</span>
+                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">{{ __('messages.ui_32bb89f2') }}</h3>
                         <p class="text-3xl font-black text-slate-900 dark:text-white mt-3">{{ number_format($totalBeneficiaries) }}</p>
                     </div>
                     <div class="p-2.5 bg-indigo-50 dark:bg-indigo-950/50 rounded-xl text-indigo-600 dark:text-indigo-400">
@@ -56,7 +56,7 @@
                 </div>
                 <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                    <span>على قيد الحياة: <span class="font-bold text-slate-700 dark:text-slate-200">{{ number_format($aliveCount) }}</span></span>
+                    <span>{{ __('messages.ui_9f864497') }} <span class="font-bold text-slate-700 dark:text-slate-200">{{ number_format($aliveCount) }}</span></span>
                 </div>
             </div>
 
@@ -65,8 +65,8 @@
                 <div class="absolute -right-6 -top-6 w-24 h-24 bg-rose-50 dark:bg-rose-950/20 rounded-full transition-all group-hover:scale-110"></div>
                 <div class="relative flex justify-between items-start">
                     <div>
-                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">التحديثات السيادية</span>
-                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">الشهداء والمفقودين كشوفات</h3>
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">{{ __('messages.ui_f4733925') }}</span>
+                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">{{ __('messages.ui_c0ad24f2') }}</h3>
                         <p class="text-3xl font-black text-rose-600 dark:text-rose-400 mt-3">{{ number_format($martyredCount) }}</p>
                     </div>
                     <div class="p-2.5 bg-rose-50 dark:bg-rose-950/50 rounded-xl text-rose-600 dark:text-rose-400">
@@ -75,7 +75,7 @@
                 </div>
                 <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                    <span>المفقودين كلياً: <span class="font-bold text-amber-600">{{ number_format($missingCount) }}</span></span>
+                    <span>{{ __('messages.ui_1ebae0b6') }} <span class="font-bold text-amber-600">{{ number_format($missingCount) }}</span></span>
                 </div>
             </div>
 
@@ -84,8 +84,8 @@
                 <div class="absolute -right-6 -top-6 w-24 h-24 bg-emerald-50 dark:bg-emerald-950/20 rounded-full transition-all group-hover:scale-110"></div>
                 <div class="relative flex justify-between items-start">
                     <div>
-                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">الشركاء الميدانيين</span>
-                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">المؤسسات والجمعيات المعتمدة</h3>
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">{{ __('messages.ui_59af946f') }}</span>
+                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">{{ __('messages.ui_ca8f73f4') }}</h3>
                         <p class="text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-3">{{ number_format($approvedOrgs) }}</p>
                     </div>
                     <div class="p-2.5 bg-emerald-50 dark:bg-emerald-950/50 rounded-xl text-emerald-600 dark:text-emerald-400">
@@ -94,7 +94,7 @@
                 </div>
                 <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-                    <span>قيد دراسة الترخيص: <span class="font-bold text-slate-700 dark:text-slate-200">{{ $pendingOrgs }} طلبات</span></span>
+                    <span>{{ __('messages.ui_167c57a4') }} <span class="font-bold text-slate-700 dark:text-slate-200">{{ $pendingOrgs }} {{ __('messages.ui_01e1f2bc') }}</span></span>
                 </div>
             </div>
 
@@ -103,8 +103,8 @@
                 <div class="absolute -right-6 -top-6 w-24 h-24 bg-amber-50 dark:bg-amber-950/20 rounded-full transition-all group-hover:scale-110"></div>
                 <div class="relative flex justify-between items-start">
                     <div>
-                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">إجمالي عمليات التوزيع</span>
-                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">المساعدات الميدانية المسلمة</h3>
+                        <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-wider">{{ __('messages.ui_df608652') }}</span>
+                        <h3 class="text-gray-600 dark:text-slate-300 text-xs font-semibold mt-0.5">{{ __('messages.ui_6783b790') }}</h3>
                         <p class="text-3xl font-black text-amber-600 dark:text-amber-400 mt-3">{{ number_format($deliveredCount) }}</p>
                     </div>
                     <div class="p-2.5 bg-amber-50 dark:bg-amber-950/50 rounded-xl text-amber-600 dark:text-amber-400">
@@ -113,7 +113,7 @@
                 </div>
                 <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1.5">
                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
-                    <span>بانتظار التسليم حالياً: <span class="font-bold text-amber-600">{{ number_format($pendingDistributions) }} حصة</span></span>
+                    <span>{{ __('messages.ui_08dce822') }} <span class="font-bold text-amber-600">{{ number_format($pendingDistributions) }} {{ __('messages.ui_26828071') }}</span></span>
                 </div>
             </div>
 
@@ -126,7 +126,7 @@
             <div class="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/60 dark:border-slate-800 shadow-sm">
                 <h4 class="text-sm font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
                     <x-heroicon-o-chart-pie class="w-5 h-5 text-indigo-500" />
-                    مؤشر تنوع دورات الإغاثة والمساعدات النشطة بالدولة
+                    {{ __('messages.ui_db69f7d7') }}
                 </h4>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -135,9 +135,9 @@
                         <div class="flex justify-between text-xs font-semibold">
                             <span class="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded bg-emerald-500"></span>
-                                سلال غذائية وخضراوات
+                                {{ __('messages.ui_4778df58') }}
                             </span>
-                            <span class="text-slate-900 dark:text-white font-bold">{{ $foodPackagesCount }} حزم فعالة</span>
+                            <span class="text-slate-900 dark:text-white font-bold">{{ $foodPackagesCount }} {{ __('messages.ui_e3d873ce') }}</span>
                         </div>
                         <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                             <div class="bg-emerald-500 h-full rounded-full" style="width: {{ $foodPackagesCount > 0 ? min(100, ($foodPackagesCount / max(1, $foodPackagesCount + $cashPackagesCount + $medicalPackagesCount + $clothingPackagesCount)) * 100) : 0 }}%"></div>
@@ -149,9 +149,9 @@
                         <div class="flex justify-between text-xs font-semibold">
                             <span class="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded bg-indigo-500"></span>
-                                قسائم نقدية ومساعدات مالية
+                                {{ __('messages.ui_adb626f6') }}
                             </span>
-                            <span class="text-slate-900 dark:text-white font-bold">{{ $cashPackagesCount }} حزم فعالة</span>
+                            <span class="text-slate-900 dark:text-white font-bold">{{ $cashPackagesCount }} {{ __('messages.ui_e3d873ce') }}</span>
                         </div>
                         <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                             <div class="bg-indigo-500 h-full rounded-full" style="width: {{ $cashPackagesCount > 0 ? min(100, ($cashPackagesCount / max(1, $foodPackagesCount + $cashPackagesCount + $medicalPackagesCount + $clothingPackagesCount)) * 100) : 0 }}%"></div>
@@ -163,9 +163,9 @@
                         <div class="flex justify-between text-xs font-semibold">
                             <span class="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded bg-rose-500"></span>
-                                أدوية ومستلزمات طبية وجرحى
+                                {{ __('messages.ui_b17c37c1') }}
                             </span>
-                            <span class="text-slate-900 dark:text-white font-bold">{{ $medicalPackagesCount }} حزم فعالة</span>
+                            <span class="text-slate-900 dark:text-white font-bold">{{ $medicalPackagesCount }} {{ __('messages.ui_e3d873ce') }}</span>
                         </div>
                         <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                             <div class="bg-rose-500 h-full rounded-full" style="width: {{ $medicalPackagesCount > 0 ? min(100, ($medicalPackagesCount / max(1, $foodPackagesCount + $cashPackagesCount + $medicalPackagesCount + $clothingPackagesCount)) * 100) : 0 }}%"></div>
@@ -177,9 +177,9 @@
                         <div class="flex justify-between text-xs font-semibold">
                             <span class="text-slate-600 dark:text-slate-400 flex items-center gap-1.5">
                                 <span class="w-2.5 h-2.5 rounded bg-amber-500"></span>
-                                ملابس شتوية وأغطية للخيام
+                                {{ __('messages.ui_2ad555f0') }}
                             </span>
-                            <span class="text-slate-900 dark:text-white font-bold">{{ $clothingPackagesCount }} حزم فعالة</span>
+                            <span class="text-slate-900 dark:text-white font-bold">{{ $clothingPackagesCount }} {{ __('messages.ui_e3d873ce') }}</span>
                         </div>
                         <div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
                             <div class="bg-amber-500 h-full rounded-full" style="width: {{ $clothingPackagesCount > 0 ? min(100, ($clothingPackagesCount / max(1, $foodPackagesCount + $cashPackagesCount + $medicalPackagesCount + $clothingPackagesCount)) * 100) : 0 }}%"></div>
@@ -193,15 +193,15 @@
                 <div>
                     <h4 class="text-sm font-bold uppercase tracking-wider text-indigo-400 mb-2 flex items-center gap-1.5">
                         <x-heroicon-m-lock-closed class="w-5 h-5 text-indigo-400" />
-                        ميثاق حوكمة الشركاء المركزي
+                        {{ __('messages.ui_7ba771a8') }}
                     </h4>
                     <p class="text-xs text-slate-300 leading-relaxed mt-2">
-                        بصفتك مديراً للنظام السيادي الموحد، تخضع كافة المؤسسات والجمعيات الشريكة لنظام تقييم ومراقبة مستمر. يتيح لك النظام حظر أو إيقاف ترخيص أي مؤسسة مخالفة فوراً للسياسات الإنسانية المعيارية، مما يمنعها تلقائياً من المسح الميداني أو توزيع أي مساعدات جديدة.
+                        {{ __('messages.ui_c1051b86') }}
                     </p>
                 </div>
 
                 <div class="mt-6 pt-4 border-t border-indigo-900/60 text-xs text-slate-400 flex items-center justify-between">
-                    <span>حالة النظام: <span class="font-bold text-emerald-400">مستقر ومحمي</span></span>
+                    <span>{{ __('messages.ui_1d440215') }} <span class="font-bold text-emerald-400">{{ __('messages.ui_5e4335cc') }}</span></span>
                     <span class="text-[10px] bg-indigo-500/10 px-2.5 py-1 rounded border border-indigo-500/20">v2.4.0-Harness</span>
                 </div>
             </div>

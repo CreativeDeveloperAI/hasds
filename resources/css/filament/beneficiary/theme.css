@@ -2,3 +2,4 @@
 
 @source '../../../../app/Filament/Beneficiary/**/*';
 @source '../../../../resources/views/filament/beneficiary/**/*';
+@source '../../../../vendor/bezhansalleh/filament-language-switch/**';

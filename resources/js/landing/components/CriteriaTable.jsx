@@ -1,23 +1,5 @@
 import { motion } from "framer-motion";
-
-const matrixData = [
-  {
-    variable: "حجم العائلة وعدد الأطفال والمسنين",
-    mechanism: "ارتباط طردي مع درجة الحاجة",
-  },
-  {
-    variable: "مستوى الدخل الشهري الفعلي",
-    mechanism: "ارتباط عكسي لتحديد مستوى الفقر",
-  },
-  {
-    variable: "فترة النزوح وطبيعة السكن الحالي",
-    mechanism: "معيار أولوية قصوى لمراكز الإيواء والخيام",
-  },
-  {
-    variable: "الحالة الصحية ووجود حالات مزمنة أو إعاقة",
-    mechanism: "ثقل إضافي تراكمي لرفع الأولوية آلياً",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 const containerVariants = {
   hidden: {},
@@ -30,21 +12,26 @@ const rowVariants = {
 };
 
 export default function CriteriaMatrix() {
+  const { t, i18n } = useTranslation();
+  const matrixData = t("matrix.rows", { returnObjects: true });
+
   return (
     <section
       id="matrix"
       className="py-20 bg-gray-50/30 flex items-center justify-center min-h-screen font-sans"
-      dir="rtl"
+      dir={i18n.dir()}
     >
       <div className="container mx-auto px-6 max-w-5xl">
         <div className="bg-white/60 backdrop-blur-md p-8 md:p-12 rounded-2xl border border-gray-100 shadow-sm w-full">
           <div className="text-center mb-12">
             <h2 className="text-2xl md:text-4xl font-black text-gray-950 tracking-tight">
-              مصـفوفة معايير نموذج تعلم الآلة
+              {t("matrix.heading")}
             </h2>
           </div>
           <div className="overflow-hidden rounded-2xl border border-gray-100/90 bg-white shadow-md">
-            <table className="w-full text-right border-collapse">
+            <table
+              className={`w-full border-collapse ${i18n.dir() === "rtl" ? "text-right" : "text-left"}`}
+            >
               <thead>
                 <tr
                   style={{ backgroundColor: "rgba(184, 242, 242, 0.4)" }}
@@ -54,13 +41,13 @@ export default function CriteriaMatrix() {
                     style={{ color: "#346B68" }}
                     className="py-5 px-6 md:px-8 text-sm md:text-base tracking-wide w-1/2"
                   >
-                    المتغير المدخل للنموذج الذكي
+                    {t("matrix.columns.variable")}
                   </th>
                   <th
                     style={{ color: "#346B68" }}
                     className="py-5 px-6 md:px-8 text-sm md:text-base tracking-wide w-1/2"
                   >
-                    آلية التغيير على مستوى الاستحقاق الأولوية
+                    {t("matrix.columns.mechanism")}
                   </th>
                 </tr>
               </thead>

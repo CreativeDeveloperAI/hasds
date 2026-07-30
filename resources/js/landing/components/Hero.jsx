@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export default function Hero() {
+  const { t } = useTranslation();
+
   return (
     <section
       id="hero"
@@ -29,9 +32,7 @@ export default function Hero() {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="max-w-3xl mx-auto text-base md:text-lg text-gray-600 leading-relaxed font-medium"
         >
-          منصة ويب ذكية ومتكاملة لإدارة وتوزيع المساعدات الإنسانية الإغاثية في
-          قطاع غزة، تعمل على أتمتة الإجراءات بالذكاء الاصطناعي لمكافحة الهدر،
-          منع تكرار الصرف، وضمان أعلى معايير النزاهة والعدالة الميدانية.
+          {t("hero.description")}
         </motion.p>
       </div>
     </section>

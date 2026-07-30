@@ -6,6 +6,8 @@ Route::get('/', function () {
     return view('landing');
 });
 
-Route::get('/gateway', function () {
-    return view('gateway');
-});
+Route::get('/lang/{locale}', function (string $locale) {
+    session(['locale' => $locale]);
+
+    return response()->noContent();
+})->whereIn('locale', ['ar', 'en']);

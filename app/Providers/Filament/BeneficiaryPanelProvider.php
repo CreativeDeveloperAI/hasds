@@ -3,7 +3,6 @@
 namespace App\Providers\Filament;
 
 use App\Filament\Beneficiary\Pages\Auth\CustomBeneficiaryLogin;
-use App\Filament\Pages\Auth\RegisterOrganization;
 use Caresome\FilamentAuthDesigner\AuthDesignerPlugin;
 use Caresome\FilamentAuthDesigner\Data\AuthPageConfig;
 use Caresome\FilamentAuthDesigner\Enums\MediaPosition;
@@ -16,8 +15,6 @@ use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
 use Filament\Support\Enums\Width;
-use Filament\Widgets\AccountWidget;
-use Filament\Widgets\FilamentInfoWidget;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\PreventRequestForgery;
@@ -67,15 +64,15 @@ class BeneficiaryPanelProvider extends PanelProvider
             ])
             ->plugins([
                 AuthDesignerPlugin::make()
-                    ->defaults(fn(AuthPageConfig $config) => $config
+                    ->defaults(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png')
                         ))
-                    ->login(fn(AuthPageConfig $config) => $config
+                    ->login(fn (AuthPageConfig $config) => $config
                         ->media(asset('assets/img_1.png'))
                         ->usingPage(CustomBeneficiaryLogin::class)
                         ->mediaPosition(MediaPosition::Cover)
                         ->mediaSize('60%') // Media takes 50% width
-                    )
+                    ),
             ]);
     }
 }
