@@ -33,6 +33,8 @@ class DatabaseSeeder extends Seeder
             CustomFieldDefinitionSeeder::class,
             AssistancePackageSeeder::class,
             AssistanceDistributionSeeder::class,
+            // حسابات ثابتة معروفة مسبقاً (Admin/Organization/Beneficiary) لمراجعة العرض التجريبي بسهولة
+            DemoAccountSeeder::class,
         ]);
     }
 }

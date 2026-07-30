@@ -14,11 +14,6 @@ use Illuminate\Support\Facades\Hash;
  */
 class BeneficiaryFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
     protected array $maleFirstNames = [
         'محمد', 'أحمد', 'خالد', 'يوسف', 'إبراهيم', 'عمر', 'محمود', 'مصطفى',
         'عبدالله', 'حسام', 'زياد', 'إياد', 'سامي', 'رامي', 'وليد', 'باسل',
@@ -50,13 +45,15 @@ class BeneficiaryFactory extends Factory
             : fake()->randomElement($this->femaleFirstNames);
         $fatherName = fake()->randomElement($this->maleFirstNames);
         $familyName = fake()->randomElement($this->familyNames);
+        $dateOfBirth = fake()->dateTimeBetween('-85 years', '-18 years')->format('Y-m-d');
 
         return [
             'national_id' => fake()->unique()->numerify('#########'),
             'full_name' => "{$firstName} {$fatherName} {$familyName}",
             'gender' => $gender,
-            'date_of_birth' => fake()->dateTimeBetween('-85 years', '-18 years'),
-            'password' => static::$password ??= Hash::make('password'),
+            'date_of_birth' => $dateOfBirth,
+            // كلمة السر = تاريخ الميلاد، بنفس منطق تسجيل الدخول الفعلي (CustomBeneficiaryLogin/CreateBeneficiary)
+            'password' => Hash::make($dateOfBirth),
             'personal_phone' => sprintf('+970 5%d-%03d-%04d', fake()->numberBetween(0, 9), fake()->numberBetween(0, 999), fake()->numberBetween(0, 9999)),
             'marital_status' => fake()->randomElement([
                 MaritalStatus::Married,
