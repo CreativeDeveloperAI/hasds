@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('beneficiary_organization', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('beneficiary_id')->constrained()->cascadeOnDelete();
             $table->foreignId('organization_id')->constrained()->cascadeOnDelete();
             $table->string('phone_number')->nullable(); // رقم التواصل الميداني الحالي
