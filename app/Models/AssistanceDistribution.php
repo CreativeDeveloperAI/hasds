@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use App\Enums\AssistancePackageStatus;
 use App\Enums\DistributionStatus;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class AssistanceDistribution extends Model
 {
+    use HasFactory;
+
     protected $table = 'assistance_distributions';
 
     protected $guarded = [];

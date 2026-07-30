@@ -8,24 +8,27 @@ use App\Enums\VitalStatus;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasName;
 use Filament\Panel;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Beneficiary extends Authenticatable implements FilamentUser ,HasName
+class Beneficiary extends Authenticatable implements FilamentUser, HasName
 {
+    use HasFactory;
+
     public function getFilamentName(): string
     {
         return $this->full_name;
     }
+
     public function getAuthIdentifierName(): string
     {
         return 'national_id';
     }
 
     protected $guarded = [];
+
     protected $casts = [
         'password' => 'hashed',
         'date_of_birth' => 'date',
@@ -42,7 +45,6 @@ class Beneficiary extends Authenticatable implements FilamentUser ,HasName
     {
         return $panel->getId() === 'beneficiary';
     }
-
 
     /**
      * علاقة المستفيد مع المؤسسات التي قامت بمسحه وتقييمه ميدانياً (متعدد لمتعدد مع حقول Pivot شاملة)
@@ -74,7 +76,7 @@ class Beneficiary extends Authenticatable implements FilamentUser ,HasName
                 'surveyed_at',
                 'custom_fields',
                 'ai_priority_score_status',
-                'ai_priority_score'
+                'ai_priority_score',
             ])
             ->withTimestamps();
     }

@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'ai_priority_score' => [
+        'url' => env('AI_PRIORITY_SCORE_URL', 'https://aid-priority-system.onrender.com/predict'),
+    ],
+
 ];

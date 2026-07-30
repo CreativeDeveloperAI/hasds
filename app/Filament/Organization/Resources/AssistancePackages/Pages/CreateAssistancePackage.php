@@ -2,6 +2,7 @@
 
 namespace App\Filament\Organization\Resources\AssistancePackages\Pages;
 
+use App\Enums\AiPriorityScoreStatus;
 use App\Enums\DistributionStatus;
 use App\Filament\Organization\Resources\AssistancePackages\AssistancePackageResource;
 use App\Models\AssistanceDistribution;
@@ -38,7 +39,8 @@ class CreateAssistancePackage extends CreateRecord
             $min = $package->target_min_score_ai ?? 0;
             $max = $package->target_max_score_ai ?? 100;
             $query->whereRelation('organizations', 'ai_priority_score', '>=', $min)
-                ->whereRelation('organizations', 'ai_priority_score', '<=', $max);
+                ->whereRelation('organizations', 'ai_priority_score', '<=', $max)
+                ->whereRelation('organizations', 'ai_priority_score_status', AiPriorityScoreStatus::Completed->value);
         }
 
         // الفلاتر الأخرى يجب أن تنتقل إلى whereRelation أيضاً
@@ -83,7 +85,9 @@ class CreateAssistancePackage extends CreateRecord
             $query->where('vital_status', $package->target_vital_status);
         }
 
-        // ... باقي منطق التدقيق المتقاطع (يبقى كما هو)
+        // استبعاد/اشتراط من استلم مساعدة مشابهة من مؤسسة أخرى مشاركة بالتدقيق المتقاطع
+        $query = $package->applyPreviousAssistanceFilter($query);
+
         $beneficiaries = $query->limit($package->total_quantity)->get();
 
         Log::info('AssistancePackage: Found '.$beneficiaries->count().' beneficiaries. Filters applied: '.json_encode($package->only(['target_min_score', 'target_gender', 'target_is_displaced'])));

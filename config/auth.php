@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Beneficiary;
 use App\Models\User;
 
 return [
@@ -42,6 +43,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'organization_guard' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
         'beneficiary_guard' => [
             'driver' => 'session',
             'provider' => 'beneficiaries_provider',
@@ -77,7 +82,7 @@ return [
         // ],
         'beneficiaries_provider' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Beneficiary::class,
+            'model' => Beneficiary::class,
         ],
     ],
 

@@ -89,10 +89,12 @@ class DistributionsRelationManager extends RelationManager
                                 $alreadyAssigned = AssistanceDistribution::where('assistance_package_id', $package->id)
                                     ->pluck('beneficiary_id');
 
-                                return Beneficiary::whereHas('organizations', function ($q) use ($tenantId) {
+                                $query = Beneficiary::whereHas('organizations', function ($q) use ($tenantId) {
                                     $q->where('organization_id', $tenantId);
                                 })
-                                    ->whereNotIn('id', $alreadyAssigned)
+                                    ->whereNotIn('id', $alreadyAssigned);
+
+                                return $package->applyPreviousAssistanceFilter($query)
                                     ->pluck('full_name', 'id');
                             })
                             ->searchable()
@@ -147,10 +149,12 @@ class DistributionsRelationManager extends RelationManager
                                 $alreadyAssigned = AssistanceDistribution::where('assistance_package_id', $package->id)
                                     ->pluck('beneficiary_id');
 
-                                return Beneficiary::whereHas('organizations', function ($q) use ($tenantId) {
+                                $query = Beneficiary::whereHas('organizations', function ($q) use ($tenantId) {
                                     $q->where('organization_id', $tenantId);
                                 })
-                                    ->whereNotIn('id', $alreadyAssigned)
+                                    ->whereNotIn('id', $alreadyAssigned);
+
+                                return $package->applyPreviousAssistanceFilter($query)
                                     ->pluck('full_name', 'id');
                             })
                             ->searchable()

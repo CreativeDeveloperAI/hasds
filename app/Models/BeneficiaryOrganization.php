@@ -10,6 +10,7 @@ use App\Enums\ShelterCondition;
 use App\Enums\SurveyStatus;
 use App\Observers\BeneficiaryOrganizationObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\Concerns\AsPivot;
 use Illuminate\Database\Eloquent\Relations\Pivot;
@@ -17,7 +18,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
 #[ObservedBy(BeneficiaryOrganizationObserver::class)]
 class BeneficiaryOrganization extends Model
 {
-    use AsPivot; // ⬅️ هاد اللي بيرجع قدرات الـ pivot (fromRawAttributes وغيرها)
+    use AsPivot, HasFactory; // ⬅️ هاد اللي بيرجع قدرات الـ pivot (fromRawAttributes وغيرها)
+
     // تحديد اسم جدول الربط الميداني المتقاطع
     protected $table = 'beneficiary_organization';
 

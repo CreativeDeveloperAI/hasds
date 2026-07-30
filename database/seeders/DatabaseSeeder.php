@@ -12,14 +12,27 @@ class DatabaseSeeder extends Seeder
 
     /**
      * Seed the application's database.
+     *
+     * الترتيب هنا مهم جداً بسبب المفاتيح الأجنبية (FK-safe order):
+     * المؤسسات ← المستخدمون التابعون لها ← سياسات السكور ← المستفيدون ومسوحاتهم الميدانية
+     * ← الحقول الديناميكية ← حزم المساعدة ← عمليات التوزيع الفعلية.
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
+        // المستخدم الافتراضي: يبقى بلا مؤسسة (organization_id = null) ليكون حساب دخول
+        // مسؤول النظام السيادي (لوحة admin).
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
+        ]);
+
+        $this->call([
+            OrganizationSeeder::class,
+            ScoringPolicySeeder::class,
+            BeneficiarySeeder::class,
+            CustomFieldDefinitionSeeder::class,
+            AssistancePackageSeeder::class,
+            AssistanceDistributionSeeder::class,
         ]);
     }
 }

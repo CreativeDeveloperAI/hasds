@@ -34,10 +34,10 @@ class BeneficiaryForm
 
         foreach ($dynamicFields as $field) {
             $fieldComponent = match ($field->field_type) {
-                'number' => TextInput::make("pivot_custom_fields.{$field->field_key}")->numeric(),
-                'boolean' => Toggle::make("pivot_custom_fields.{$field->field_key}")->inline(false),
-                'select' => Select::make("pivot_custom_fields.{$field->field_key}")->options($field->options ?? []),
-                default => TextInput::make("pivot_custom_fields.{$field->field_key}"),
+                'number' => TextInput::make("pivot_custom_fields.$field->field_key")->numeric(),
+                'boolean' => Toggle::make("pivot_custom_fields.$field->field_key")->inline(false),
+                'select' => Select::make("pivot_custom_fields.$field->field_key")->options($field->options ?? []),
+                default => TextInput::make("pivot_custom_fields.$field->field_key"),
             };
 
             $fieldComponent->label($field->field_label)->required($field->is_required);
@@ -141,7 +141,7 @@ class BeneficiaryForm
                         TextInput::make('pivot_pregnant_or_lactating_count')
                             ->label(__('messages.ui_4cacc2dc'))
                             ->numeric()
-                            ->default(0)// ضروري جداً
+                            ->default(0)
                             ->required(),
 
                         TextInput::make('pivot_monthly_income')
@@ -159,7 +159,6 @@ class BeneficiaryForm
                             ->default(false),
                     ])->columns(4),
 
-                // القسم الثالث: المؤشرات الصحية والطبية الميدانية (تم نقلها هنا)
                 Section::make(__('messages.ui_553b4902'))
                     ->schema([
                         Toggle::make('pivot_has_disability')
@@ -202,13 +201,13 @@ class BeneficiaryForm
 
                         Select::make('pivot_current_shelter_type')
                             ->label(__('messages.ui_1bf6729d'))
-                            ->options(CurrentShelterType::class) // استخدام الـ Enum الجديد والمطوّر بدلاً من الـ TextInput السابق
+                            ->options(CurrentShelterType::class)
                             ->visible(fn (Get $get) => $get('pivot_is_displaced') === true)
                             ->required(fn (Get $get) => $get('pivot_is_displaced') === true),
 
                         Select::make('pivot_shelter_condition')
                             ->label(__('messages.ui_23bfe7bc'))
-                            ->options(ShelterCondition::class) // استخدام الـ Enum الجديد لجودة السكن
+                            ->options(ShelterCondition::class)
                             ->required(),
                     ])->columns(4),
 

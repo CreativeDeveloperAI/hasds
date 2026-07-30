@@ -17,7 +17,7 @@ class BeneficiaryOrganizationObserver
     {
         // بس إذا الحقول المؤثرة على السكور تغيرت فعلاً
         // (لتفادي إعادة الحساب كل مرة بيتحدث فيها أي حقل تاني، ولتفادي loop لأن الجوب نفسه بيعمل update)
-        if ($beneficiaryOrganization->wasChanged(['has_disability', 'monthly_income', 'family_members_count'])) {
+        if ($beneficiaryOrganization->wasChanged(['has_disability', 'monthly_income', 'family_members_count', 'current_shelter_type', 'shelter_condition'])) {
             CalculateBeneficiaryPriorityScore::dispatch($beneficiaryOrganization)
                 ->afterCommit();
         }
