@@ -36,7 +36,7 @@ export default {
     items: {
       duplication: {
         title: "Duplication Prevention",
-        desc: "Relying on a strict structured database that prevents identical aid from being randomly issued to the same beneficiary more than once, cutting waste by 95%.",
+        desc: "Relying on a strict structured database that prevents identical aid from being randomly issued to the same beneficiary more than once, reducing waste and improving distribution efficiency.",
       },
       prioritization: {
         title: "Automated Priority Ranking",
@@ -44,7 +44,7 @@ export default {
       },
       emergency: {
         title: "Emergency Response",
-        desc: "Supporting rapid-response plans for sudden field developments, generating and processing emergency distribution routes in under 15 minutes.",
+        desc: "Supporting rapid-response plans for sudden field developments, and accelerating the processing path for urgent cases when needed.",
       },
     },
   },
@@ -74,12 +74,12 @@ export default {
     ],
   },
   metrics: {
-    heading: "Target Performance Indicators & Technologies Used",
-    subheading: "The project's engineering environment and adopted software quality metrics",
+    heading: "Target Performance Goals & Technologies Used",
+    subheading: "The project's engineering environment, and the performance-indicator design targets (not yet field-measured)",
     items: {
-      accuracy: { title: "Smart Ranking Accuracy" },
-      reduction: { title: "Duplicate Distribution Reduction" },
-      users: { title: "Concurrent Users" },
+      accuracy: { title: "Target Smart Ranking Accuracy" },
+      reduction: { title: "Target Duplication Reduction Rate" },
+      users: { title: "Target Concurrent Users" },
     },
     stackHeading: "System Software Architecture",
   },

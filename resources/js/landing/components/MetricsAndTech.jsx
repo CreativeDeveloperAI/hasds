@@ -8,8 +8,8 @@ const metrics = [
 ];
 
 const rowOneStack = [
-  { label: "Frontend: React.js 20.x" },
-  { label: "Backend: Laravel 12.x (PHP 8.5)" },
+  { label: "Frontend: Filament/Livewire + React.js 19.x" },
+  { label: "Backend: Laravel 13.x (PHP 8.4)" },
 ];
 
 const rowTwoStack = [
